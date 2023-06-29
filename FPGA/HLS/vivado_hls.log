@@ -1,0 +1,1105 @@
+INFO: Applying HLS Y2K22 patch v1.2 for IP revision
+INFO: [HLS 200-10] Running 'D:/Xilinx/Vivado/2020.1/bin/unwrapped/win64.o/vivado_hls.exe'
+INFO: [HLS 200-10] For user 'SHAOQIAN' on host 'desktop-6cavdas' (Windows NT_amd64 version 6.2) on Wed Jun 28 18:06:02 +1000 2023
+INFO: [HLS 200-10] In directory 'E:/xilinx_workspace/COMP4601/SkyNet-KV260/FPGA/HLS'
+Sourcing Tcl script 'E:/xilinx_workspace/COMP4601/SkyNet-KV260/FPGA/HLS/model/solution6/csynth.tcl'
+INFO: [HLS 200-10] Opening project 'E:/xilinx_workspace/COMP4601/SkyNet-KV260/FPGA/HLS/model'.
+INFO: [HLS 200-10] Adding design file 'net_hls.h' to the project
+INFO: [HLS 200-10] Adding design file 'net_hls.cc' to the project
+INFO: [HLS 200-10] Adding design file 'dwconv3x3.cc' to the project
+INFO: [HLS 200-10] Adding design file 'conv1x1.cc' to the project
+INFO: [HLS 200-10] Adding test bench file 'weights_floating.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'tb.cc' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/stitched_8_11.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/stitched_4_7.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/stitched_0_3.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'reorder_weight.cc' to the project
+INFO: [HLS 200-10] Adding test bench file 'output_verify.cc' to the project
+INFO: [HLS 200-10] Adding test bench file 'golden_c.cc' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/9.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/8.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/7.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/6.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/5.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/4.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/3.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/2.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/11.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/10.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/1.bin' to the project
+INFO: [HLS 200-10] Adding test bench file 'test_image_bins/0.bin' to the project
+INFO: [HLS 200-10] Opening solution 'E:/xilinx_workspace/COMP4601/SkyNet-KV260/FPGA/HLS/model/solution6'.
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [SYN 201-201] Setting up clock 'default' with an uncertainty of 1.25ns.
+INFO: [HLS 200-10] Setting target device to 'xqzu5ev-ffrb900-1-i'
+INFO: [HLS 200-435] Setting 'config_sdx -target' configuration: config_export -vivado_optimization_level=2
+INFO: [HLS 200-435] Setting 'config_sdx -target' configuration: set_clock_uncertainty default
+INFO: [HLS 200-435] Setting 'config_sdx -target' configuration: config_export -vivado_optimization_level=2
+INFO: [HLS 200-435] Setting 'config_sdx -target' configuration: set_clock_uncertainty default
+INFO: [SCHED 204-61] Option 'relax_ii_for_timing' is enabled, will increase II to preserve clock frequency constraints.
+INFO: [HLS 200-10] Analyzing design file 'conv1x1.cc' ... 
+INFO: [HLS 200-10] Analyzing design file 'dwconv3x3.cc' ... 
+INFO: [HLS 200-10] Analyzing design file 'net_hls.cc' ... 
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:03 ; elapsed = 00:00:26 . Memory (MB): peak = 993.191 ; gain = 899.770
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:03 ; elapsed = 00:00:26 . Memory (MB): peak = 993.191 ; gain = 899.770
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:04 ; elapsed = 00:00:28 . Memory (MB): peak = 993.191 ; gain = 899.770
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [XFORM 203-602] Inlining function 'relu_single' into 'DW_CONV_3x3' (dwconv3x3.cc:53) automatically.
+INFO: [XFORM 203-602] Inlining function 'load_weights128' into 'CONV_1x1' (conv1x1.cc:109) automatically.
+INFO: [XFORM 203-602] Inlining function 'relu_single' into 'relu_max' (net_hls.cc:569) automatically.
+INFO: [XFORM 203-602] Inlining function 'relu_single' into 'relu_copy_buf_to_DDR_acc' (net_hls.cc:321) automatically.
+INFO: [XFORM 203-602] Inlining function 'relu_single' into 'relu_copy_buf_to_DDR' (net_hls.cc:296) automatically.
+WARNING: [SYNCHK 200-23] net_hls.cc:322: variable-indexed range selection may cause suboptimal QoR.
+INFO: [SYNCHK 200-10] 0 error(s), 1 warning(s).
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:00:05 ; elapsed = 00:00:29 . Memory (MB): peak = 993.191 ; gain = 899.770
+INFO: [XFORM 203-502] Unrolling small iteration loop 'Loop-11' (net_hls.cc:1222) in function 'SkyNet' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:479) in function 'clear_buffer' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:763) in function 'local_buf_copy' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:290) in function 'relu_copy_buf_to_DDR' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:339) in function 'load_buf_from_DDR' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:315) in function 'relu_copy_buf_to_DDR_acc' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:459) in function 'load_dw2_pool_from_DDR' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:436) in function 'load_dw1_pool_from_DDR' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:597) in function 'Relu_Max_Pooling' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1.1' (conv1x1.cc:113) in function 'CONV_1x1' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:401) in function 'set_bias_1x1' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1.1.1' (dwconv3x3.cc:37) in function 'DW_CONV_3x3' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-2.1' (dwconv3x3.cc:50) in function 'DW_CONV_3x3' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:416) in function 'set_bias_3x3' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1' (net_hls.cc:358) in function 'load_weight_1x1_from_axi' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Loop-1.1' (net_hls.cc:374) in function 'load_weight_3x3_from_axi' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'Loop-11' (net_hls.cc:1222) in function 'SkyNet' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:481) in function 'clear_buffer' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:765) in function 'local_buf_copy' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:294) in function 'relu_copy_buf_to_DDR' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:343) in function 'load_buf_from_DDR' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:319) in function 'relu_copy_buf_to_DDR_acc' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:463) in function 'load_dw2_pool_from_DDR' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:440) in function 'load_dw1_pool_from_DDR' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:600) in function 'Relu_Max_Pooling' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.1' (conv1x1.cc:116) in function 'CONV_1x1' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:403) in function 'set_bias_1x1' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1.1.1' (dwconv3x3.cc:39) in function 'DW_CONV_3x3' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-2.1.1' (dwconv3x3.cc:52) in function 'DW_CONV_3x3' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:418) in function 'set_bias_3x3' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1' (net_hls.cc:362) in function 'load_weight_1x1_from_axi' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1' (net_hls.cc:391) in function 'load_bias_from_axi' completely with a factor of 32.
+INFO: [HLS 200-489] Unrolling loop 'Loop-1.1.1' (net_hls.cc:378) in function 'load_weight_3x3_from_axi' completely with a factor of 32.
+INFO: [XFORM 203-102] Partitioning array 'DATA.V' (net_hls.cc:638) automatically.
+INFO: [XFORM 203-101] Partitioning array 'FM_buf_acc.V' (net_hls.cc:822) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'FM_buf2.V' (net_hls.cc:819) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'FM_buf1.V' (net_hls.cc:818) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'FM_buf4.V' (net_hls.cc:821) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'FM_buf3.V' (net_hls.cc:820) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'weight_buf_1x1.V' (net_hls.cc:825) in dimension 2 completely.
+INFO: [XFORM 203-101] Partitioning array 'weight_buf'  in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'weight_buf_3x3.V' (net_hls.cc:826) in dimension 2 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf.V' (net_hls.cc:827) in dimension 2 completely.
+INFO: [XFORM 203-101] Partitioning array 'weight_buf'  in dimension 2 completely.
+INFO: [XFORM 203-602] Inlining function 'relu_single' into 'relu_max' (net_hls.cc:569) automatically.
+INFO: [XFORM 203-602] Inlining function 'relu_single' into 'relu_copy_buf_to_DDR_acc' (net_hls.cc:321) automatically.
+INFO: [XFORM 203-602] Inlining function 'relu_single' into 'relu_copy_buf_to_DDR' (net_hls.cc:296) automatically.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[0].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[1].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[2].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[3].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[4].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[5].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[6].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[7].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[8].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[9].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[10].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[11].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[12].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[13].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[14].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[15].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[16].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[17].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[18].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[19].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[20].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[21].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[22].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[23].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[24].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[25].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[26].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[27].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[28].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[29].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[30].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-102] Automatically partitioning small array 'bias_buf[31].V' (net_hls.cc:827) completely based on array size.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[0].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[1].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[2].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[3].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[4].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[5].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[6].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[7].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[8].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[9].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[10].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[11].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[12].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[13].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[14].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[15].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[16].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[17].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[18].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[19].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[20].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[21].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[22].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[23].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[24].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[25].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[26].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[27].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[28].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[29].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[30].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-101] Partitioning array 'bias_buf[31].V' (net_hls.cc:827) in dimension 1 completely.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:416:33) to (net_hls.cc:416:27) in function 'set_bias_3x3'... converting 193 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:569:5) to (net_hls.cc:577:1) in function 'relu_max'... converting 7 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:315:32) to (net_hls.cc:315:26) in function 'relu_copy_buf_to_DDR_acc'... converting 65 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:33:9) to (conv1x1.cc:69:2) in function 'compute_engine_16'... converting 11 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:66:23) to (net_hls.cc:72:2) in function 'compute_bounding_box'... converting 46 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:75:23) to (net_hls.cc:80:2) in function 'compute_bounding_box'... converting 46 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:127:23) to (net_hls.cc:133:2) in function 'compute_bounding_box'... converting 46 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:136:23) to (net_hls.cc:141:2) in function 'compute_bounding_box'... converting 46 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:187:23) to (net_hls.cc:193:2) in function 'compute_bounding_box'... converting 46 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:196:23) to (net_hls.cc:201:2) in function 'compute_bounding_box'... converting 46 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:248:23) to (net_hls.cc:254:2) in function 'compute_bounding_box'... converting 46 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:257:23) to (net_hls.cc:262:2) in function 'compute_bounding_box'... converting 46 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (net_hls.cc:597:33) to (net_hls.cc:608:4) in function 'Relu_Max_Pooling'... converting 257 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:37:34) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (dwconv3x3.cc:41:20) to (dwconv3x3.cc:41:20) in function 'DW_CONV_3x3'... converting 5 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:113:34) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (conv1x1.cc:118:20) to (conv1x1.cc:118:20) in function 'CONV_1x1'... converting 51 basic blocks.
+INFO: [XFORM 203-11] Balancing expressions in function 'load_image_chunk_norm' (net_hls.cc:512)...14 expression(s) balanced.
+INFO: [XFORM 203-11] Balancing expressions in function 'load_dw2_pool_from_DDR' (net_hls.cc:452)...4 expression(s) balanced.
+INFO: [XFORM 203-11] Balancing expressions in function 'load_dw1_pool_from_DDR' (net_hls.cc:429)...4 expression(s) balanced.
+INFO: [XFORM 203-11] Balancing expressions in function 'compute_engine_16' (conv1x1.cc:33:2)...14 expression(s) balanced.
+INFO: [XFORM 203-11] Balancing expressions in function 'SkyNet' (net_hls.cc:773)...3 expression(s) balanced.
+INFO: [XFORM 203-11] Balancing expressions in function 'Relu_Max_Pooling' (net_hls.cc:583)...12 expression(s) balanced.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:01:27 ; elapsed = 00:01:52 . Memory (MB): peak = 993.191 ; gain = 899.770
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:415:15) in function 'set_bias_3x3'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:400:15) in function 'set_bias_1x1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:313:15) in function 'relu_copy_buf_to_DDR_acc'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:287:15) in function 'relu_copy_buf_to_DDR'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:762:15) in function 'local_buf_copy'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (conv1x1.cc:78:16) in function 'load_weights'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:373:15) in function 'load_weight_3x3_from_axi'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:519:15) in function 'load_image_chunk_norm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-2' (net_hls.cc:528:15) in function 'load_image_chunk_norm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-3' (net_hls.cc:537:15) in function 'load_image_chunk_norm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:458:15) in function 'load_dw2_pool_from_DDR'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:435:15) in function 'load_dw1_pool_from_DDR'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:337:15) in function 'load_buf_from_DDR'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:478:15) in function 'clear_buffer'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (net_hls.cc:596:15) in function 'Relu_Max_Pooling'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1.1.1' (dwconv3x3.cc:36:17) in function 'DW_CONV_3x3'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1.1' (dwconv3x3.cc:35:16) in function 'DW_CONV_3x3'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1' (dwconv3x3.cc:34:15) in function 'DW_CONV_3x3'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-2' (dwconv3x3.cc:49:16) in function 'DW_CONV_3x3'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-1.1' (conv1x1.cc:112:16) in function 'CONV_1x1'.
+WARNING: [XFORM 203-542] Cannot flatten a loop nest 'Loop-1' (conv1x1.cc:106:16) in function 'CONV_1x1' : 
+
+the outer loop is not a perfect loop.
+WARNING: [HLS 200-451] Automatic burst inferencing is disabled for port 'image_in_raw_pad_burst.V' as a bitwidth mismatch was detected between port 'image_in_raw_pad_burst.V' and its bundle 'INPUT' (8 vs. 512)(net_hls.cc:540:33). To allow bursting all ports sharing a bundle must have the same bitwidth.
+WARNING: [HLS 200-451] Automatic burst inferencing is disabled for port 'image_in_raw_pad_burst.V' as a bitwidth mismatch was detected between port 'image_in_raw_pad_burst.V' and its bundle 'INPUT' (8 vs. 512)(net_hls.cc:531:33). To allow bursting all ports sharing a bundle must have the same bitwidth.
+WARNING: [HLS 200-451] Automatic burst inferencing is disabled for port 'image_in_raw_pad_burst.V' as a bitwidth mismatch was detected between port 'image_in_raw_pad_burst.V' and its bundle 'INPUT' (8 vs. 512)(net_hls.cc:540:33). To allow bursting all ports sharing a bundle must have the same bitwidth.
+WARNING: [HLS 200-451] Automatic burst inferencing is disabled for port 'image_in_raw_pad_burst.V' as a bitwidth mismatch was detected between port 'image_in_raw_pad_burst.V' and its bundle 'INPUT' (8 vs. 512)(net_hls.cc:531:33). To allow bursting all ports sharing a bundle must have the same bitwidth.
+WARNING: [HLS 200-451] Automatic burst inferencing is disabled for port 'image_in_raw_pad_burst.V' as a bitwidth mismatch was detected between port 'image_in_raw_pad_burst.V' and its bundle 'INPUT' (8 vs. 512)(net_hls.cc:531:33). To allow bursting all ports sharing a bundle must have the same bitwidth.
+WARNING: [HLS 200-451] Automatic burst inferencing is disabled for port 'image_in_raw_pad_burst.V' as a bitwidth mismatch was detected between port 'image_in_raw_pad_burst.V' and its bundle 'INPUT' (8 vs. 512)(net_hls.cc:540:33). To allow bursting all ports sharing a bundle must have the same bitwidth.
+WARNING: [HLS 200-466] Port 'conv_weight_1x1_all.V'() has different latency/depth on the same m_axi bundle:'INPUT'
+WARNING: [HLS 200-466] Port 'conv_weight_3x3_all.V'() has different latency/depth on the same m_axi bundle:'INPUT'
+WARNING: [HLS 200-466] Port 'bias_all.V'() has different latency/depth on the same m_axi bundle:'INPUT'
+WARNING: [HLS 200-466] Port 'DDR_dw1_pool_out_PL_burst.V'() has different latency/depth on the same m_axi bundle:'INPUT'
+WARNING: [HLS 200-466] Port 'DDR_dw2_pool_out_PL_burst.V'() has different latency/depth on the same m_axi bundle:'INPUT'
+WARNING: [HLS 200-466] Port 'DDR_buf_burst.V'() has different latency/depth on the same m_axi bundle:'INPUT'
+WARNING: [HLS 200-466] Port 'predict_boxes'() has different latency/depth on the same m_axi bundle:'OUTPUT'
+WARNING: [HLS 200-466] Port 'constant'() has different latency/depth on the same m_axi bundle:'OUTPUT'
+WARNING: [XFORM 203-631] Renaming function 'relu_copy_buf_to_DDR_acc' to 'relu_copy_buf_to_DDR.1' (net_hls.cc:15:13)
+WARNING: [XFORM 203-631] Renaming function 'relu_copy_buf_to_DDR' to 'relu_copy_buf_to_DDR.1.1' (net_hls.cc:15:26)
+WARNING: [XFORM 203-631] Renaming function 'load_weight_3x3_from_axi' to 'load_weight_3x3_from' (net_hls.cc:373:25)
+WARNING: [XFORM 203-631] Renaming function 'load_weight_1x1_from_axi' to 'load_weight_1x1_from' (net_hls.cc:358:27)
+WARNING: [XFORM 203-631] Renaming function 'load_image_chunk_norm4748' to 'load_image_chunk_nor' (net_hls.cc:517:26)
+WARNING: [XFORM 203-631] Renaming function 'load_image_chunk_norm47' to 'load_image_chunk_nor.1' (net_hls.cc:517:26)
+WARNING: [XFORM 203-631] Renaming function 'load_image_chunk_norm' to 'load_image_chunk_nor.2' (net_hls.cc:517:26)
+WARNING: [XFORM 203-631] Renaming function 'load_dw2_pool_from_DDR' to 'load_dw2_pool_from_D' (net_hls.cc:456:26)
+WARNING: [XFORM 203-631] Renaming function 'load_dw1_pool_from_DDR' to 'load_dw1_pool_from_D' (net_hls.cc:433:26)
+INFO: [XFORM 203-811] Inferring bus burst read of length 3 on port 'INPUT' (net_hls.cc:842:2).
+INFO: [XFORM 203-811] Inferring bus burst read of length 2 on port 'INPUT' (net_hls.cc:885:2).
+INFO: [XFORM 203-811] Inferring bus burst read of length 3 on port 'INPUT' (net_hls.cc:935:2).
+INFO: [XFORM 203-811] Inferring bus burst write of length 5 on port 'predict_box' (net_hls.cc:66:23).
+INFO: [XFORM 203-811] Inferring bus burst write of length 5 on port 'predict_box' (net_hls.cc:75:23).
+INFO: [XFORM 203-811] Inferring bus burst write of length 3 on port 'predict_box' (net_hls.cc:82:5).
+INFO: [XFORM 203-811] Inferring bus burst write of length 5 on port 'predict_box' (net_hls.cc:127:23).
+INFO: [XFORM 203-811] Inferring bus burst write of length 5 on port 'predict_box' (net_hls.cc:136:23).
+INFO: [XFORM 203-811] Inferring bus burst write of length 3 on port 'predict_box' (net_hls.cc:143:5).
+INFO: [XFORM 203-811] Inferring bus burst write of length 5 on port 'predict_box' (net_hls.cc:187:23).
+INFO: [XFORM 203-811] Inferring bus burst write of length 5 on port 'predict_box' (net_hls.cc:196:23).
+INFO: [XFORM 203-811] Inferring bus burst write of length 3 on port 'predict_box' (net_hls.cc:203:5).
+INFO: [XFORM 203-811] Inferring bus burst write of length 5 on port 'predict_box' (net_hls.cc:248:23).
+INFO: [XFORM 203-811] Inferring bus burst write of length 5 on port 'predict_box' (net_hls.cc:257:23).
+INFO: [XFORM 203-811] Inferring bus burst write of length 3 on port 'predict_box' (net_hls.cc:264:5).
+INFO: [HLS 200-444] Inferring multiple bus burst write of a total cumulative length 84 on port 'dest.V' (net_hls.cc:299:32). These data requests might be further partitioned to multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.
+INFO: [HLS 200-444] Inferring multiple bus burst read of a total cumulative length 84 on port 'src.V' (net_hls.cc:342:26). These data requests might be further partitioned to multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.
+INFO: [HLS 200-444] Inferring multiple bus burst write of a total cumulative length 84 on port 'dest.V' (net_hls.cc:324:32). These data requests might be further partitioned to multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.
+INFO: [HLS 200-444] Inferring multiple bus burst read of a total cumulative length 82 on port 'ddr_dw2_pool_burst.V' (net_hls.cc:462:25). These data requests might be further partitioned to multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.
+INFO: [HLS 200-444] Inferring multiple bus burst read of a total cumulative length 82 on port 'ddr_dw1_pool_burst.V' (net_hls.cc:439:25). These data requests might be further partitioned to multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.
+INFO: [HLS 200-444] Inferring multiple bus burst read of a total cumulative length 32 on port 'src.V' (net_hls.cc:361:24). These data requests might be further partitioned to multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.
+INFO: [HLS 200-472] Inferring partial write operation for 'buf[0].V' (net_hls.cc:420:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf[0].V' (net_hls.cc:421:5)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf[0].V' (net_hls.cc:405:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf[0].V' (net_hls.cc:406:5)
+INFO: [HLS 200-472] Inferring partial write operation for 'dest[0].V' (net_hls.cc:766:34)
+INFO: [HLS 200-472] Inferring partial write operation for 'dest[0].V' (net_hls.cc:767:35)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf[0].V' (net_hls.cc:483:2)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf[0].V' (net_hls.cc:484:5)
+INFO: [HLS 200-472] Inferring partial write operation for 'top[1].V' (dwconv3x3.cc:41:20)
+INFO: [HLS 200-472] Inferring partial write operation for 'top[0].V' (dwconv3x3.cc:41:20)
+INFO: [HLS 200-472] Inferring partial write operation for 'top[0].V' (dwconv3x3.cc:41:20)
+INFO: [HLS 200-472] Inferring partial write operation for 'top[0].V' (dwconv3x3.cc:53:23)
+INFO: [HLS 200-472] Inferring partial write operation for 'top[0].V' (dwconv3x3.cc:54:24)
+INFO: [HLS 200-472] Inferring partial write operation for 'top[1].V' (conv1x1.cc:118:20)
+INFO: [HLS 200-472] Inferring partial write operation for 'top[0].V' (conv1x1.cc:118:20)
+INFO: [HLS 200-472] Inferring partial write operation for 'top[0].V' (conv1x1.cc:118:20)
+INFO: [HLS 200-472] Inferring partial write operation for 'dest[0].V' (net_hls.cc:381:31)
+INFO: [HLS 200-472] Inferring partial write operation for 'dest[0].V' (net_hls.cc:364:30)
+INFO: [HLS 200-472] Inferring partial write operation for 'img_buf[0].V' (net_hls.cc:522:33)
+INFO: [HLS 200-472] Inferring partial write operation for 'img_buf[1].V' (net_hls.cc:531:33)
+INFO: [HLS 200-472] Inferring partial write operation for 'img_buf[2].V' (net_hls.cc:540:33)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf[0].V' (net_hls.cc:466:29)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf[0].V' (net_hls.cc:443:29)
+INFO: [HLS 200-472] Inferring partial write operation for 'dest[0].V' (net_hls.cc:345:30)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[1].V' (net_hls.cc:663:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[1].V' (net_hls.cc:664:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[1].V' (net_hls.cc:665:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[1].V' (net_hls.cc:666:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[2].V' (net_hls.cc:668:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[2].V' (net_hls.cc:669:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[2].V' (net_hls.cc:670:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[2].V' (net_hls.cc:671:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[3].V' (net_hls.cc:673:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[3].V' (net_hls.cc:674:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[3].V' (net_hls.cc:675:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[3].V' (net_hls.cc:676:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[0].V' (net_hls.cc:658:80)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[0].V' (net_hls.cc:659:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[0].V' (net_hls.cc:660:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_1[0].V' (net_hls.cc:661:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[1].V' (net_hls.cc:684:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[1].V' (net_hls.cc:685:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[1].V' (net_hls.cc:686:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[1].V' (net_hls.cc:687:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[2].V' (net_hls.cc:689:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[2].V' (net_hls.cc:690:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[2].V' (net_hls.cc:691:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[2].V' (net_hls.cc:692:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[3].V' (net_hls.cc:694:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[3].V' (net_hls.cc:695:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[3].V' (net_hls.cc:696:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[3].V' (net_hls.cc:697:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[0].V' (net_hls.cc:679:80)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[0].V' (net_hls.cc:680:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[0].V' (net_hls.cc:681:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_2[0].V' (net_hls.cc:682:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[1].V' (net_hls.cc:704:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[1].V' (net_hls.cc:705:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[1].V' (net_hls.cc:706:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[1].V' (net_hls.cc:707:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[2].V' (net_hls.cc:709:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[2].V' (net_hls.cc:710:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[2].V' (net_hls.cc:711:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[2].V' (net_hls.cc:712:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[3].V' (net_hls.cc:714:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[3].V' (net_hls.cc:715:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[3].V' (net_hls.cc:716:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[3].V' (net_hls.cc:717:86)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[0].V' (net_hls.cc:699:80)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[0].V' (net_hls.cc:700:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[0].V' (net_hls.cc:701:82)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_3[0].V' (net_hls.cc:702:84)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[3].V' (net_hls.cc:738:87)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[3].V' (net_hls.cc:737:85)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[3].V' (net_hls.cc:736:85)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[3].V' (net_hls.cc:735:83)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[2].V' (net_hls.cc:733:87)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[2].V' (net_hls.cc:732:85)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[2].V' (net_hls.cc:731:85)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[2].V' (net_hls.cc:730:83)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[1].V' (net_hls.cc:728:87)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[1].V' (net_hls.cc:727:85)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[1].V' (net_hls.cc:726:85)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[1].V' (net_hls.cc:725:83)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[0].V' (net_hls.cc:723:85)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[0].V' (net_hls.cc:722:83)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[0].V' (net_hls.cc:721:83)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf_out_4[0].V' (net_hls.cc:720:81)
+WARNING: [XFORM 203-631] Renaming function 'relu_copy_buf_to_DDR.1.1' to 'relu_copy_buf_to_DDR' (net_hls.cc:283)
+WARNING: [HLS 200-463] Ignoring allocation pragma because function 'load_image_chunk_nor_2' is missing or was optimized away (net_hls.cc:808:1)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:47:42 ; elapsed = 00:48:10 . Memory (MB): peak = 1504.520 ; gain = 1411.098
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'SkyNet' ...
+WARNING: [SYN 201-103] Legalizing function name 'load_image_chunk_nor.2' to 'load_image_chunk_nor_2'.
+WARNING: [SYN 201-103] Legalizing function name 'load_image_chunk_nor.1' to 'load_image_chunk_nor_1'.
+WARNING: [SYN 201-103] Legalizing function name 'relu_copy_buf_to_DDR.1' to 'relu_copy_buf_to_DDR_1'.
+WARNING: [SYN 201-107] Renaming port name 'SkyNet/INPUT' to 'SkyNet/INPUT_r' to avoid the conflict with HDL keywords or other object names.
+WARNING: [SYN 201-107] Renaming port name 'SkyNet/OUTPUT' to 'SkyNet/OUTPUT_r' to avoid the conflict with HDL keywords or other object names.
+WARNING: [SYN 201-107] Renaming port name 'SkyNet/constant' to 'SkyNet/constant_r' to avoid the conflict with HDL keywords or other object names.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_weight_3x3_from' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 10.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 2894.36 seconds; current allocated memory: 1016.454 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.379 seconds; current allocated memory: 1017.193 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_bias_from_axi' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.455 seconds; current allocated memory: 1018.494 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.749 seconds; current allocated memory: 1020.471 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_weight_1x1_from' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 3.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.85 seconds; current allocated memory: 1021.065 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.369 seconds; current allocated memory: 1021.759 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_image_chunk_nor' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 2'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 3'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.473 seconds; current allocated memory: 1022.297 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.428 seconds; current allocated memory: 1023.040 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'set_bias_3x3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+WARNING: [SCHED 204-69] Unable to schedule 'store' operation ('buf_0_V_addr_1_write_ln421', net_hls.cc:421) of variable 'select_ln340_1', net_hls.cc:420 on array 'buf_0_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'buf_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 2, Depth = 2.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.837 seconds; current allocated memory: 1.002 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 1.48 seconds; current allocated memory: 1.009 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'relu_single' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'relu_single'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 1.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.564 seconds; current allocated memory: 1.010 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.197 seconds; current allocated memory: 1.010 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'DW_CONV_3x3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+WARNING: [SCHED 204-69] Unable to schedule 'store' operation ('top_0_V_addr_2_write_ln41', dwconv3x3.cc:41) of constant 256 on array 'top_0_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'top_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 2, Depth = 4.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 2'.
+WARNING: [SCHED 204-69] Unable to schedule 'store' operation ('top_0_V_addr_write_ln53', dwconv3x3.cc:53) of variable 'zext_ln203', dwconv3x3.cc:53 on array 'top_0_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'top_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 2, Depth = 3.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.007 seconds; current allocated memory: 1.014 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 2.539 seconds; current allocated memory: 1.020 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_image_chunk_nor_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 2'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 3'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 2.725 seconds; current allocated memory: 1.022 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.422 seconds; current allocated memory: 1.023 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_image_chunk_nor_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 2'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-61] Pipelining loop 'Loop 3'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 11.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.511 seconds; current allocated memory: 1.023 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.429 seconds; current allocated memory: 1.024 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'set_bias_1x1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+WARNING: [SCHED 204-69] Unable to schedule 'store' operation ('buf_0_V_addr_2_write_ln406', net_hls.cc:406) of variable 'shl_ln', net_hls.cc:405 on array 'buf_0_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'buf_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 2, Depth = 2.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.611 seconds; current allocated memory: 1.025 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.655 seconds; current allocated memory: 1.030 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_weights' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 2.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 3.123 seconds; current allocated memory: 1.042 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 6.396 seconds; current allocated memory: 1.059 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_engine_16' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'compute_engine_16'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 2.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 5.754 seconds; current allocated memory: 1.060 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.419 seconds; current allocated memory: 1.060 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'CONV_1x1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1.1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 2, Final II = 2, Depth = 6.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.342 seconds; current allocated memory: 1.066 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 3.668 seconds; current allocated memory: 1.077 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'relu_max' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining function 'relu_max'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 1.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 3.819 seconds; current allocated memory: 1.079 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.25 seconds; current allocated memory: 1.079 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Relu_Max_Pooling' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 2, Final II = 2, Depth = 10.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.716 seconds; current allocated memory: 1.087 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 4.277 seconds; current allocated memory: 1.099 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_dw1_pool_from_D' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 25.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 4.795 seconds; current allocated memory: 1.102 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.416 seconds; current allocated memory: 1.103 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_dw2_pool_from_D' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 25.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.46 seconds; current allocated memory: 1.104 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.416 seconds; current allocated memory: 1.104 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'relu_copy_buf_to_DDR_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 23.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.606 seconds; current allocated memory: 1.107 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 1.338 seconds; current allocated memory: 1.110 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_buf_from_DDR' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 25.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.572 seconds; current allocated memory: 1.112 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.404 seconds; current allocated memory: 1.112 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'relu_copy_buf_to_DDR' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 1, Depth = 23.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.458 seconds; current allocated memory: 1.113 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.548 seconds; current allocated memory: 1.114 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_and_reorg_part' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 3.126 seconds; current allocated memory: 1.121 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 3.599 seconds; current allocated memory: 1.129 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_and_reorg' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 3.733 seconds; current allocated memory: 1.130 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.594 seconds; current allocated memory: 1.131 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'local_buf_copy' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+WARNING: [SCHED 204-69] Unable to schedule 'store' operation ('dest_0_V_addr_1_write_ln767', net_hls.cc:767) of variable 'trunc_ln339_1', net_hls.cc:767 on array 'dest_0_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'dest_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 2, Depth = 3.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.819 seconds; current allocated memory: 1.133 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.746 seconds; current allocated memory: 1.134 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'clear_buffer' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+WARNING: [SCHED 204-69] Unable to schedule 'store' operation ('buf_0_V_addr_3_write_ln484', net_hls.cc:484) of constant 0 on array 'buf_0_V' due to limited memory ports. Please consider using a memory core with more ports or partitioning the array 'buf_0_V'.
+INFO: [SCHED 204-61] Pipelining result : Target II = 1, Final II = 2, Depth = 2.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 0.826 seconds; current allocated memory: 1.134 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 0.446 seconds; current allocated memory: 1.135 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_bounding_box' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 1.251 seconds; current allocated memory: 1.140 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 3.107 seconds; current allocated memory: 1.148 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'SkyNet' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111]  Elapsed time: 8.459 seconds; current allocated memory: 1.160 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Starting global binding ...
+INFO: [BIND 205-100] Starting global binding ...
+INFO: [BIND 205-100] Starting global binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111]  Elapsed time: 33.836 seconds; current allocated memory: 1.199 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_weight_3x3_from' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_weight_3x3_from'.
+INFO: [HLS 200-111]  Elapsed time: 10.19 seconds; current allocated memory: 1.210 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_bias_from_axi' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mux_42_11_1_1' to 'SkyNet_mux_42_11_bkb' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mux_42_11_bkb': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mux_42_1_1_1': 124 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_bias_from_axi'.
+INFO: [HLS 200-111]  Elapsed time: 1.104 seconds; current allocated memory: 1.252 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_weight_1x1_from' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_weight_1x1_from'.
+INFO: [HLS 200-111]  Elapsed time: 1.554 seconds; current allocated memory: 1.260 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_image_chunk_nor' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'load_image_chunk_nor_img_norm_ch_V' to 'load_image_chunk_cud' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mac_muladd_8ns_6ns_7ns_13_1_1' to 'SkyNet_mac_muladddEe' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladddEe': 3 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_image_chunk_nor'.
+INFO: [HLS 200-111]  Elapsed time: 0.614 seconds; current allocated memory: 1.263 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'set_bias_3x3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mux_1288_11_1_1' to 'SkyNet_mux_1288_1eOg' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladddEe': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mux_1288_1eOg': 32 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'set_bias_3x3'.
+INFO: [HLS 200-111]  Elapsed time: 0.958 seconds; current allocated memory: 1.284 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'relu_single' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'relu_single'.
+INFO: [HLS 200-111]  Elapsed time: 3.031 seconds; current allocated memory: 1.303 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'DW_CONV_3x3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mac_muladd_11s_9s_16s_20_1_1' to 'SkyNet_mac_muladdfYi' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mac_muladd_9s_11s_16s_20_1_1' to 'SkyNet_mac_muladdg8j' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mac_muladd_6ns_8ns_7ns_13_1_1' to 'SkyNet_mac_muladdhbi' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladddEe': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdfYi': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdg8j': 31 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdhbi': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'DW_CONV_3x3'.
+INFO: [HLS 200-111]  Elapsed time: 0.704 seconds; current allocated memory: 1.313 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_image_chunk_nor_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'load_image_chunk_nor_2_img_norm_ch_V' to 'load_image_chunk_ibs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mul_mul_11ns_9ns_20_1_1' to 'SkyNet_mul_mul_11jbC' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladddEe': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mul_mul_11jbC': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_image_chunk_nor_2'.
+INFO: [HLS 200-111]  Elapsed time: 4.909 seconds; current allocated memory: 1.340 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_image_chunk_nor_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'load_image_chunk_nor_1_img_norm_ch_V' to 'load_image_chunk_kbM' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladddEe': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mul_mul_11jbC': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_image_chunk_nor_1'.
+INFO: [HLS 200-111]  Elapsed time: 0.974 seconds; current allocated memory: 1.343 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'set_bias_1x1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdhbi': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mux_1288_1eOg': 32 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'set_bias_1x1'.
+INFO: [HLS 200-111]  Elapsed time: 1.178 seconds; current allocated memory: 1.360 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_weights' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mux_325_11_1_1' to 'SkyNet_mux_325_11lbW' due to the length limit 20
+INFO: [RTGEN 206-104] Estimated max fanout for 'load_weights' is 5633 from HDL expression: (1'b1 == ap_CS_fsm_state4)
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mux_325_11lbW': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_weights'.
+INFO: [HLS 200-111]  Elapsed time: 15.186 seconds; current allocated memory: 1.953 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_engine_16' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mul_mul_11s_9s_20_1_0' to 'SkyNet_mul_mul_11mb6' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mac_muladd_11s_9s_20s_21_1_0' to 'SkyNet_mac_muladdncg' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdncg': 8 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mul_mul_11mb6': 8 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_engine_16'.
+INFO: [HLS 200-111]  Elapsed time: 10.031 seconds; current allocated memory: 2.001 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'CONV_1x1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-104] Estimated max fanout for 'CONV_1x1' is 11323 from HDL expression: ((1'b1 == ap_CS_fsm_state3) & (grp_load_weights_fu_3425_ap_done == 1'b1))
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdhbi': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'CONV_1x1'.
+INFO: [HLS 200-111]  Elapsed time: 9.196 seconds; current allocated memory: 2.318 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'relu_max' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'relu_max'.
+INFO: [HLS 200-111]  Elapsed time: 6.528 seconds; current allocated memory: 2.346 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Relu_Max_Pooling' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Relu_Max_Pooling'.
+INFO: [HLS 200-111]  Elapsed time: 1.331 seconds; current allocated memory: 2.364 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_dw1_pool_from_D' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_urem_12ns_8ns_12_16_1' to 'SkyNet_urem_12ns_ocq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mac_muladd_10ns_7ns_9ns_16_1_1' to 'SkyNet_mac_muladdpcA' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdhbi': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdpcA': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_urem_12ns_ocq': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_dw1_pool_from_D'.
+INFO: [HLS 200-111]  Elapsed time: 10.148 seconds; current allocated memory: 2.414 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_dw2_pool_from_D' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mac_muladd_9ns_6ns_8ns_13_1_1' to 'SkyNet_mac_muladdqcK' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdhbi': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdqcK': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_urem_12ns_ocq': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_dw2_pool_from_D'.
+INFO: [HLS 200-111]  Elapsed time: 1.68 seconds; current allocated memory: 2.418 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'relu_copy_buf_to_DDR_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mul_mul_8ns_13ns_19_1_1' to 'SkyNet_mul_mul_8nrcU' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladddEe': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mul_mul_8nrcU': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_urem_12ns_ocq': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'relu_copy_buf_to_DDR_1'.
+INFO: [HLS 200-111]  Elapsed time: 1.657 seconds; current allocated memory: 2.426 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_buf_from_DDR' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdhbi': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mul_mul_8nrcU': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_urem_12ns_ocq': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_buf_from_DDR'.
+INFO: [HLS 200-111]  Elapsed time: 3.655 seconds; current allocated memory: 2.442 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'relu_copy_buf_to_DDR' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mul_mul_7ns_13ns_19_1_1' to 'SkyNet_mul_mul_7nsc4' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladddEe': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mul_mul_7nsc4': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_urem_12ns_ocq': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'relu_copy_buf_to_DDR'.
+INFO: [HLS 200-111]  Elapsed time: 1.619 seconds; current allocated memory: 2.446 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_and_reorg_part' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-104] Estimated max fanout for 'load_and_reorg_part' is 6660 from HDL expression: ((1'b1 == ap_CS_fsm_state26) & (m_axi_buf_in_V_RVALID == 1'b1))
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mul_mul_7nsc4': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_and_reorg_part'.
+INFO: [HLS 200-111]  Elapsed time: 2.847 seconds; current allocated memory: 2.460 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'load_and_reorg' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'load_and_reorg'.
+INFO: [HLS 200-111]  Elapsed time: 7.278 seconds; current allocated memory: 2.501 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'local_buf_copy' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladddEe': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'local_buf_copy'.
+INFO: [HLS 200-111]  Elapsed time: 1.894 seconds; current allocated memory: 2.505 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'clear_buffer' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdhbi': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'clear_buffer'.
+INFO: [HLS 200-111]  Elapsed time: 2.094 seconds; current allocated memory: 2.510 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_bounding_box' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SYN 201-210] Renamed object name 'SkyNet_mac_muladd_8ns_13s_13ns_13_1_1' to 'SkyNet_mac_muladdtde' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'SkyNet_mac_muladdtde': 8 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_bounding_box'.
+INFO: [HLS 200-111]  Elapsed time: 1.867 seconds; current allocated memory: 2.524 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'SkyNet' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/INPUT_r' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/OUTPUT_r' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/image_in_raw_pad_V' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/conv_weight_1x1_all_V' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/conv_weight_3x3_all_V' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/bias_all_V' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/DDR_dw1_pool_out_PL_burst_V' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/DDR_dw2_pool_out_PL_burst_V' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/DDR_buf_burst_V' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/debug' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/predict_boxes' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'SkyNet/constant_r' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'SkyNet' to 's_axilite & ap_ctrl_hs' (register).
+INFO: [RTGEN 206-100] Bundling port 'return', 'image_in_raw_pad_V', 'conv_weight_1x1_all_V', 'conv_weight_3x3_all_V', 'bias_all_V', 'DDR_dw1_pool_out_PL_burst_V', 'DDR_dw2_pool_out_PL_burst_V', 'DDR_buf_burst_V', 'debug', 'predict_boxes' and 'constant_r' to AXI-Lite port AXILiteS.
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_0_V' to 'SkyNet_FM_buf_accudo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_1_V' to 'SkyNet_FM_buf_accvdy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_2_V' to 'SkyNet_FM_buf_accwdI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_3_V' to 'SkyNet_FM_buf_accxdS' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_4_V' to 'SkyNet_FM_buf_accyd2' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_5_V' to 'SkyNet_FM_buf_acczec' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_6_V' to 'SkyNet_FM_buf_accAem' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_7_V' to 'SkyNet_FM_buf_accBew' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_8_V' to 'SkyNet_FM_buf_accCeG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_9_V' to 'SkyNet_FM_buf_accDeQ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_10_V' to 'SkyNet_FM_buf_accEe0' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_11_V' to 'SkyNet_FM_buf_accFfa' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_12_V' to 'SkyNet_FM_buf_accGfk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_13_V' to 'SkyNet_FM_buf_accHfu' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_14_V' to 'SkyNet_FM_buf_accIfE' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_15_V' to 'SkyNet_FM_buf_accJfO' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_16_V' to 'SkyNet_FM_buf_accKfY' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_17_V' to 'SkyNet_FM_buf_accLf8' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_18_V' to 'SkyNet_FM_buf_accMgi' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_19_V' to 'SkyNet_FM_buf_accNgs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_20_V' to 'SkyNet_FM_buf_accOgC' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_21_V' to 'SkyNet_FM_buf_accPgM' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_22_V' to 'SkyNet_FM_buf_accQgW' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_23_V' to 'SkyNet_FM_buf_accRg6' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_24_V' to 'SkyNet_FM_buf_accShg' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_25_V' to 'SkyNet_FM_buf_accThq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_26_V' to 'SkyNet_FM_buf_accUhA' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_27_V' to 'SkyNet_FM_buf_accVhK' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_28_V' to 'SkyNet_FM_buf_accWhU' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_29_V' to 'SkyNet_FM_buf_accXh4' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_30_V' to 'SkyNet_FM_buf_accYie' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_FM_buf_acc_31_V' to 'SkyNet_FM_buf_accZio' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_0_V' to 'SkyNet_weight_buf0iy' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_1_V' to 'SkyNet_weight_buf1iI' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_2_V' to 'SkyNet_weight_buf2iS' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_3_V' to 'SkyNet_weight_buf3i2' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_4_V' to 'SkyNet_weight_buf4jc' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_5_V' to 'SkyNet_weight_buf5jm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_6_V' to 'SkyNet_weight_buf6jw' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_7_V' to 'SkyNet_weight_buf7jG' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_8_V' to 'SkyNet_weight_buf8jQ' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_9_V' to 'SkyNet_weight_buf9j0' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_10_V' to 'SkyNet_weight_bufbak' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_11_V' to 'SkyNet_weight_bufbbk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_12_V' to 'SkyNet_weight_bufbck' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_13_V' to 'SkyNet_weight_bufbdk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_14_V' to 'SkyNet_weight_bufbek' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_15_V' to 'SkyNet_weight_bufbfk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_16_V' to 'SkyNet_weight_bufbgk' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_17_V' to 'SkyNet_weight_bufbhl' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_18_V' to 'SkyNet_weight_bufbil' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_19_V' to 'SkyNet_weight_bufbjl' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_20_V' to 'SkyNet_weight_bufbkl' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_21_V' to 'SkyNet_weight_bufbll' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_22_V' to 'SkyNet_weight_bufbml' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_23_V' to 'SkyNet_weight_bufbnm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_24_V' to 'SkyNet_weight_bufbom' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_25_V' to 'SkyNet_weight_bufbpm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_26_V' to 'SkyNet_weight_bufbqm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_27_V' to 'SkyNet_weight_bufbrm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_28_V' to 'SkyNet_weight_bufbsm' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_29_V' to 'SkyNet_weight_bufbtn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_30_V' to 'SkyNet_weight_bufbun' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_1x1_31_V' to 'SkyNet_weight_bufbvn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_0_V' to 'SkyNet_weight_bufbwn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_1_V' to 'SkyNet_weight_bufbxn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_2_V' to 'SkyNet_weight_bufbyn' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_3_V' to 'SkyNet_weight_bufbzo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_4_V' to 'SkyNet_weight_bufbAo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_5_V' to 'SkyNet_weight_bufbBo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_6_V' to 'SkyNet_weight_bufbCo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_7_V' to 'SkyNet_weight_bufbDo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_8_V' to 'SkyNet_weight_bufbEo' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_9_V' to 'SkyNet_weight_bufbFp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_10_V' to 'SkyNet_weight_bufbGp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_11_V' to 'SkyNet_weight_bufbHp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_12_V' to 'SkyNet_weight_bufbIp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_13_V' to 'SkyNet_weight_bufbJp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_14_V' to 'SkyNet_weight_bufbKp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_15_V' to 'SkyNet_weight_bufbLp' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_16_V' to 'SkyNet_weight_bufbMq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_17_V' to 'SkyNet_weight_bufbNq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_18_V' to 'SkyNet_weight_bufbOq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_19_V' to 'SkyNet_weight_bufbPq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_20_V' to 'SkyNet_weight_bufbQq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_21_V' to 'SkyNet_weight_bufbRq' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_22_V' to 'SkyNet_weight_bufbSr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_23_V' to 'SkyNet_weight_bufbTr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_24_V' to 'SkyNet_weight_bufbUr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_25_V' to 'SkyNet_weight_bufbVr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_26_V' to 'SkyNet_weight_bufbWr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_27_V' to 'SkyNet_weight_bufbXr' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_28_V' to 'SkyNet_weight_bufbYs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_29_V' to 'SkyNet_weight_bufbZs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_30_V' to 'SkyNet_weight_bufb0s' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'SkyNet_weight_buf_3x3_31_V' to 'SkyNet_weight_bufb1s' due to the length limit 20
+INFO: [RTGEN 206-100] Finished creating RTL model for 'SkyNet'.
+INFO: [HLS 200-111]  Elapsed time: 20.588 seconds; current allocated memory: 2.650 GB.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 114.29 MHz
+INFO: [RTMG 210-279] Implementing memory 'load_image_chunk_cud_rom' using auto ROMs.
+INFO: [RTMG 210-282] Generating pipelined core: 'SkyNet_urem_12ns_ocq_div'
+INFO: [RTMG 210-278] Implementing memory 'SkyNet_FM_buf1_0_V_ram (RAM_2P_BRAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'SkyNet_FM_buf_accudo_ram (RAM_2P_URAM)' using ultra RAMs.
+INFO: [RTMG 210-278] Implementing memory 'SkyNet_weight_buf0iy_ram (RAM_2P_BRAM)' using block RAMs.
+INFO: [RTMG 210-278] Implementing memory 'SkyNet_weight_bufbwn_ram (RAM_2P_LUTRAM)' using distributed RAMs.
+INFO: [HLS 200-111] Finished generating all RTL models Time (s): cpu = 00:51:43 ; elapsed = 00:52:40 . Memory (MB): peak = 3405.934 ; gain = 3312.512
+INFO: [VHDL 208-304] Generating VHDL RTL for SkyNet.
+INFO: [VLOG 209-307] Generating Verilog RTL for SkyNet.
+INFO: [HLS 200-112] Total elapsed time: 3161.89 seconds; peak allocated memory: 2.650 GB.

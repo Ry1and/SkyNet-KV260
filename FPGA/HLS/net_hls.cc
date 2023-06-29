@@ -8,21 +8,21 @@
 using namespace std;
 
 
-// feature map buffers
-FIX_FM FM_buf1[32][44][84];
-FIX_FM FM_buf2[32][44][84];
-FIX_FM FM_buf3[32][44][84];
-FIX_FM FM_buf4[32][44][84];
-FIX_FM_acc FM_buf_acc[32][44][84];
+//// feature map buffers
+//FIX_FM FM_buf_1[32][44][84];
+//FIX_FM FM_buf_2[32][44][84];
+//FIX_FM FM_buf_3[32][44][84];
+//FIX_FM FM_buf_4[32][44][84];
+//FIX_FM_acc FM_buf_acc[32][44][84];
+//
+//// weight buffers
+//FIX_WT weight_buf_1x1[4][32][32];
+//FIX_WT weight_buf_3x3[4][32][3][3];
+//FIX_WT bias_buf[4][32];
 
-// weight buffers
-FIX_WT weight_buf_1x1[4][32][32];
-FIX_WT weight_buf_3x3[4][32][3][3];
-FIX_WT bias_buf[4][32];
 
 
-
-void compute_bounding_box(float predict_box[4][5], int constant[4][3])
+void compute_bounding_box(float predict_box[4][5], int constant[4][3], FIX_FM_acc FM_buf_acc[32][44][84])
 {
     FIX_32_4 conf_thresh = -100.0;
     int conf_j = 0;
@@ -808,8 +808,25 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 #pragma HLS ALLOCATION instances=load_image_chunk_norm		limit=1 function
 
 
+
+
 	int CI_N, CO_N;
 	int weight_3x3_index, weight_1x1_index, bias_3x3_index, bias_1x1_index;
+
+
+	// feature map buffers
+	FIX_FM FM_buf_1[32][44][84];
+	FIX_FM FM_buf_2[32][44][84];
+	FIX_FM FM_buf_3[32][44][84];
+	FIX_FM FM_buf_4[32][44][84];
+	FIX_FM_acc FM_buf_acc[32][44][84];
+
+	// weight buffers
+	FIX_WT weight_buf_1x1[4][32][32];
+	FIX_WT weight_buf_3x3[4][32][3][3];
+	FIX_WT bias_buf[4][32];
+
+
 
 	/////////////////////////////// DW1_CONV_3x3 + DW1_CONV_1x1 + POOL ////////////////////////////
 	/// DW1_CONV_3x3
@@ -830,22 +847,22 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 
 	for(int row = 0; row < 8; row++) {
 
-		load_image_chunk_norm(FM_buf1, image_in_raw_pad, 0, row, 0/4, row/4);
+		load_image_chunk_norm(FM_buf_1, image_in_raw_pad, 0, row, 0/4, row/4);
 		for(int col = 0; col < 8; col++) {
-			set_bias_3x3(FM_buf2, bias_buf[0]);
+			set_bias_3x3(FM_buf_2, bias_buf[0]);
 
 			if( col % 2 == 0 ) {
-				DW_CONV_3x3(FM_buf1, FM_buf2, weight_buf_3x3[0], bias_buf[0], 1);
-				load_image_chunk_norm(FM_buf3, image_in_raw_pad, col+1, row, (col+1)/4, row/4);
+				DW_CONV_3x3(FM_buf_1, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 1);
+				load_image_chunk_norm(FM_buf_3, image_in_raw_pad, col+1, row, (col+1)/4, row/4);
 			}
 			else {
-				DW_CONV_3x3(FM_buf3, FM_buf2, weight_buf_3x3[0], bias_buf[0], 1);
-				load_image_chunk_norm(FM_buf1, image_in_raw_pad, col+1, row, (col+1)/4, row/4);
+				DW_CONV_3x3(FM_buf_3, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 1);
+				load_image_chunk_norm(FM_buf_1, image_in_raw_pad, col+1, row, (col+1)/4, row/4);
 			}
 
 			for(int co = 0; co < CO_N; co++) {
 				set_bias_1x1(FM_buf_acc, bias_buf[1 + co]);
-				CONV_1x1(FM_buf2, FM_buf_acc, weight_buf_1x1[co]);
+				CONV_1x1(FM_buf_2, FM_buf_acc, weight_buf_1x1[co]);
 				Relu_Max_Pooling(FM_buf_acc, DDR_dw1_pool_out_PL_burst, DDR_dw2_pool_out_PL_burst, DDR_buf_burst, 0, co, col, row, col/4, row/4, 1);
 
 			}
@@ -874,23 +891,23 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 	for(int row = 0; row < 4; row++) {
 		for(int col = 0; col < 4; col++) {
 
-			load_dw1_pool_from_DDR(DDR_dw1_pool_out_PL_burst, FM_buf1, 0, col, row, col/2, row/2);
-			set_bias_3x3(FM_buf2, bias_buf[0 + 0]);
-			DW_CONV_3x3(FM_buf1, FM_buf2, weight_buf_3x3[1 + 0], bias_buf[0 + 0], 1);
+			load_dw1_pool_from_DDR(DDR_dw1_pool_out_PL_burst, FM_buf_1, 0, col, row, col/2, row/2);
+			set_bias_3x3(FM_buf_2, bias_buf[0 + 0]);
+			DW_CONV_3x3(FM_buf_1, FM_buf_2, weight_buf_3x3[1 + 0], bias_buf[0 + 0], 1);
 
-			load_dw1_pool_from_DDR(DDR_dw1_pool_out_PL_burst, FM_buf4, 1, col, row, col/2, row/2);
-			set_bias_3x3(FM_buf3, bias_buf[0 + 1]);
-			DW_CONV_3x3(FM_buf4, FM_buf3, weight_buf_3x3[1 + 1], bias_buf[0 + 1], 1);
+			load_dw1_pool_from_DDR(DDR_dw1_pool_out_PL_burst, FM_buf_4, 1, col, row, col/2, row/2);
+			set_bias_3x3(FM_buf_3, bias_buf[0 + 1]);
+			DW_CONV_3x3(FM_buf_4, FM_buf_3, weight_buf_3x3[1 + 1], bias_buf[0 + 1], 1);
 
 			for(int co = 0; co < CO_N; co++) {
 				load_bias_from_axi(bias_buf[2], bias_all[bias_1x1_index + co]);
 				set_bias_1x1(FM_buf_acc, bias_buf[2]);
 
 				load_weight_1x1_from_axi(weight_buf_1x1[0], conv_weight_1x1_all[weight_1x1_index + 0 + co * CI_N]);
-				CONV_1x1(FM_buf2, FM_buf_acc, weight_buf_1x1[0]);
+				CONV_1x1(FM_buf_2, FM_buf_acc, weight_buf_1x1[0]);
 
 				load_weight_1x1_from_axi(weight_buf_1x1[1], conv_weight_1x1_all[weight_1x1_index + 1 + co * CI_N]);
-				CONV_1x1(FM_buf3, FM_buf_acc, weight_buf_1x1[1]);
+				CONV_1x1(FM_buf_3, FM_buf_acc, weight_buf_1x1[1]);
 
 				Relu_Max_Pooling(FM_buf_acc, DDR_dw1_pool_out_PL_burst, DDR_dw2_pool_out_PL_burst, DDR_buf_burst, 0, co, col, row, col/2, row/2, 2);
 			}
@@ -924,17 +941,17 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 	for(int row = 0; row < 2; row++) {
 		for(int col = 0; col < 2; col++) {
 
-			load_dw2_pool_from_DDR(DDR_dw2_pool_out_PL_burst, FM_buf1, 0, col, row, col/1, row/1 );
-			set_bias_3x3(FM_buf2, bias_buf[0 + 0]);
-			DW_CONV_3x3(FM_buf1, FM_buf2, weight_buf_3x3[0 + 0], bias_buf[0 + 0], 1);
+			load_dw2_pool_from_DDR(DDR_dw2_pool_out_PL_burst, FM_buf_1, 0, col, row, col/1, row/1 );
+			set_bias_3x3(FM_buf_2, bias_buf[0 + 0]);
+			DW_CONV_3x3(FM_buf_1, FM_buf_2, weight_buf_3x3[0 + 0], bias_buf[0 + 0], 1);
 
-			load_dw2_pool_from_DDR(DDR_dw2_pool_out_PL_burst, FM_buf1, 1, col, row, col/1, row/1 );
-			set_bias_3x3(FM_buf3, bias_buf[0 + 1]);
-			DW_CONV_3x3(FM_buf1, FM_buf3, weight_buf_3x3[0 + 1], bias_buf[0 + 1], 1);
+			load_dw2_pool_from_DDR(DDR_dw2_pool_out_PL_burst, FM_buf_1, 1, col, row, col/1, row/1 );
+			set_bias_3x3(FM_buf_3, bias_buf[0 + 1]);
+			DW_CONV_3x3(FM_buf_1, FM_buf_3, weight_buf_3x3[0 + 1], bias_buf[0 + 1], 1);
 
-			load_dw2_pool_from_DDR(DDR_dw2_pool_out_PL_burst, FM_buf1, 2, col, row, col/1, row/1 );
-			set_bias_3x3(FM_buf4, bias_buf[0 + 2]);
-			DW_CONV_3x3(FM_buf1, FM_buf4, weight_buf_3x3[0 + 2], bias_buf[0 + 2], 1);
+			load_dw2_pool_from_DDR(DDR_dw2_pool_out_PL_burst, FM_buf_1, 2, col, row, col/1, row/1 );
+			set_bias_3x3(FM_buf_4, bias_buf[0 + 2]);
+			DW_CONV_3x3(FM_buf_1, FM_buf_4, weight_buf_3x3[0 + 2], bias_buf[0 + 2], 1);
 
 			/// DW3_CONV_1x1
 			for(int co = 0; co < CO_N; co++) {
@@ -943,13 +960,13 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 				set_bias_1x1(FM_buf_acc, bias_buf[3]);
 
 				load_weight_1x1_from_axi(weight_buf_1x1[0], conv_weight_1x1_all[weight_1x1_index + 0 + co * CI_N]);
-				CONV_1x1(FM_buf2, FM_buf_acc, weight_buf_1x1[0]);
+				CONV_1x1(FM_buf_2, FM_buf_acc, weight_buf_1x1[0]);
 
 				load_weight_1x1_from_axi(weight_buf_1x1[1], conv_weight_1x1_all[weight_1x1_index + 1 + co * CI_N]);
-				CONV_1x1(FM_buf3, FM_buf_acc, weight_buf_1x1[1]);
+				CONV_1x1(FM_buf_3, FM_buf_acc, weight_buf_1x1[1]);
 
 				load_weight_1x1_from_axi(weight_buf_1x1[2], conv_weight_1x1_all[weight_1x1_index + 2 + co * CI_N]);
-				CONV_1x1(FM_buf4, FM_buf_acc, weight_buf_1x1[2]);
+				CONV_1x1(FM_buf_4, FM_buf_acc, weight_buf_1x1[2]);
 
 				relu_copy_buf_to_DDR_acc(DDR_buf_burst, 100 + co + (col*2 + row) * CO_N, FM_buf_acc, 0, 0);
 				Relu_Max_Pooling(FM_buf_acc, DDR_dw1_pool_out_PL_burst, DDR_dw2_pool_out_PL_burst, DDR_buf_burst, 6 + co, co, col, row, col, row, 3 );
@@ -974,24 +991,24 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 
 	CI_N = 192 / 32;
 
-	/// conv3x3: ping-pong in: FM_buf1 and FM_buf3
-	/// conv3x3: out: FM_buf2
-	load_buf_from_DDR(FM_buf1, DDR_buf_burst, 6 + 0);
+	/// conv3x3: ping-pong in: FM_buf_1 and FM_buf_3
+	/// conv3x3: out: FM_buf_2
+	load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 6 + 0);
 	for(int c = 0; c < CI_N; c++) {
 		load_weight_3x3_from_axi(weight_buf_3x3[0], conv_weight_3x3_all[weight_3x3_index + c]);
 		load_bias_from_axi(bias_buf[0], bias_all[bias_3x3_index + c]);
-		set_bias_3x3(FM_buf2, bias_buf[0]);
+		set_bias_3x3(FM_buf_2, bias_buf[0]);
 
 		if( c % 2 == 0 ) {
-			load_buf_from_DDR(FM_buf3, DDR_buf_burst, 6 + c+1);
-			DW_CONV_3x3(FM_buf1, FM_buf2, weight_buf_3x3[0], bias_buf[0], 0);
+			load_buf_from_DDR(FM_buf_3, DDR_buf_burst, 6 + c+1);
+			DW_CONV_3x3(FM_buf_1, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 0);
 		}
 		else {
-			load_buf_from_DDR(FM_buf1, DDR_buf_burst, 6 + c+1);
-			DW_CONV_3x3(FM_buf3, FM_buf2, weight_buf_3x3[0], bias_buf[0], 0);
+			load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 6 + c+1);
+			DW_CONV_3x3(FM_buf_3, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 0);
 		}
 
-		relu_copy_buf_to_DDR(DDR_buf_burst, 12 + c, FM_buf2, 0, 0);
+		relu_copy_buf_to_DDR(DDR_buf_burst, 12 + c, FM_buf_2, 0, 0);
 	}
 
 	/// DW4_CONV_1x1
@@ -1004,17 +1021,17 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 		load_bias_from_axi(bias_buf[0], bias_all[bias_1x1_index + co]);
 		set_bias_1x1(FM_buf_acc, bias_buf[0]);
 
-		load_buf_from_DDR(FM_buf1, DDR_buf_burst, 12 + 0);
+		load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 12 + 0);
 		for(int ci = 0; ci < CI_N; ci++) {
 			load_weight_1x1_from_axi(weight_buf_1x1[0], conv_weight_1x1_all[weight_1x1_index + ci + co * CI_N]);
 
 			if( ci % 2 == 0) {
-				load_buf_from_DDR(FM_buf2, DDR_buf_burst, 12 + ci+1);
-				CONV_1x1(FM_buf1, FM_buf_acc, weight_buf_1x1[0]);
+				load_buf_from_DDR(FM_buf_2, DDR_buf_burst, 12 + ci+1);
+				CONV_1x1(FM_buf_1, FM_buf_acc, weight_buf_1x1[0]);
 			}
 			else {
-				load_buf_from_DDR(FM_buf1, DDR_buf_burst, 12 + ci+1);
-				CONV_1x1(FM_buf2, FM_buf_acc, weight_buf_1x1[0]);
+				load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 12 + ci+1);
+				CONV_1x1(FM_buf_2, FM_buf_acc, weight_buf_1x1[0]);
 			}
 		}
 		relu_copy_buf_to_DDR_acc(DDR_buf_burst, 18 + co, FM_buf_acc, 0, 0);
@@ -1036,23 +1053,23 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 	bias_1x1_index += CO_N + CO_N;
 
 	CI_N = 384 / 32;
-	load_buf_from_DDR(FM_buf1, DDR_buf_burst, 18 + 0);
+	load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 18 + 0);
 	for(int c = 0; c < CI_N; c++) {
 		load_weight_3x3_from_axi(weight_buf_3x3[0], conv_weight_3x3_all[weight_3x3_index + c]);
 		load_bias_from_axi(bias_buf[0], bias_all[bias_3x3_index + c]);
-		set_bias_3x3(FM_buf2, bias_buf[0]);
+		set_bias_3x3(FM_buf_2, bias_buf[0]);
 
 		if( c % 2 == 0) {
-			load_buf_from_DDR(FM_buf3, DDR_buf_burst, 18 + c+1);
-			DW_CONV_3x3(FM_buf1, FM_buf2, weight_buf_3x3[0], bias_buf[0], 0);
+			load_buf_from_DDR(FM_buf_3, DDR_buf_burst, 18 + c+1);
+			DW_CONV_3x3(FM_buf_1, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 0);
 		}
 		else {
-			load_buf_from_DDR(FM_buf1, DDR_buf_burst, 18 + c+1);
-			DW_CONV_3x3(FM_buf3, FM_buf2, weight_buf_3x3[0], bias_buf[0], 0);
+			load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 18 + c+1);
+			DW_CONV_3x3(FM_buf_3, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 0);
 		}
 
 
-		relu_copy_buf_to_DDR(DDR_buf_burst, 30 + c, FM_buf2, 0, 0);
+		relu_copy_buf_to_DDR(DDR_buf_burst, 30 + c, FM_buf_2, 0, 0);
 	}
 
 	/// DW5_CONV_1x1
@@ -1065,17 +1082,17 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 		load_bias_from_axi(bias_buf[0], bias_all[bias_1x1_index + co]);
 		set_bias_1x1(FM_buf_acc, bias_buf[0]);
 
-		load_buf_from_DDR(FM_buf2, DDR_buf_burst, 30 + 0);
+		load_buf_from_DDR(FM_buf_2, DDR_buf_burst, 30 + 0);
 		for(int ci = 0; ci < CI_N; ci++) {
 			load_weight_1x1_from_axi(weight_buf_1x1[0], conv_weight_1x1_all[weight_1x1_index + ci + co * CI_N]);
 
 			if( ci % 2 == 0) {
-				load_buf_from_DDR(FM_buf1, DDR_buf_burst, 30 + ci+1);
-				CONV_1x1(FM_buf2, FM_buf_acc, weight_buf_1x1[0]);
+				load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 30 + ci+1);
+				CONV_1x1(FM_buf_2, FM_buf_acc, weight_buf_1x1[0]);
 			}
 			else {
-				load_buf_from_DDR(FM_buf2, DDR_buf_burst, 30 + ci+1);
-				CONV_1x1(FM_buf1, FM_buf_acc, weight_buf_1x1[0]);
+				load_buf_from_DDR(FM_buf_2, DDR_buf_burst, 30 + ci+1);
+				CONV_1x1(FM_buf_1, FM_buf_acc, weight_buf_1x1[0]);
 			}
 		}
 		relu_copy_buf_to_DDR_acc(DDR_buf_burst, 42 + co, FM_buf_acc, 0, 0);
@@ -1108,36 +1125,36 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 
 		load_and_reorg(DDR_buf_burst, 100 + c/4,         DDR_buf_burst, 100 + c/4 + 6,
 					   DDR_buf_burst, 100 + c/4 + 6 * 2, DDR_buf_burst, 100 + c/4 + 6 * 3,
-                       FM_buf1, FM_buf3, FM_buf4, FM_buf_acc);
+                       FM_buf_1, FM_buf_3, FM_buf_4, FM_buf_acc);
 
 		//// 1/4 channels
 		load_weight_3x3_from_axi(weight_buf_3x3[0], conv_weight_3x3_all[weight_3x3_index + c + 0]);
 		load_bias_from_axi(bias_buf[0], bias_all[bias_3x3_index + c + 0]);
-		set_bias_3x3(FM_buf2, bias_buf[0]);
-		DW_CONV_3x3(FM_buf1, FM_buf2, weight_buf_3x3[0], bias_buf[0], 0);
-		local_buf_copy(FM_buf1, FM_buf_acc);
-		relu_copy_buf_to_DDR(DDR_buf_burst, 58 + c + 0, FM_buf2, 0, 0);
+		set_bias_3x3(FM_buf_2, bias_buf[0]);
+		DW_CONV_3x3(FM_buf_1, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 0);
+		local_buf_copy(FM_buf_1, FM_buf_acc);
+		relu_copy_buf_to_DDR(DDR_buf_burst, 58 + c + 0, FM_buf_2, 0, 0);
 
 		//// 2/4 channels
 		load_weight_3x3_from_axi(weight_buf_3x3[1], conv_weight_3x3_all[weight_3x3_index + c + 1]);
 		load_bias_from_axi(bias_buf[1], bias_all[bias_3x3_index + c + 1]);
-		set_bias_3x3(FM_buf2, bias_buf[1]);
-		DW_CONV_3x3(FM_buf3, FM_buf2, weight_buf_3x3[1], bias_buf[1], 0);
-		relu_copy_buf_to_DDR(DDR_buf_burst, 58 + c + 1, FM_buf2, 0, 0);
+		set_bias_3x3(FM_buf_2, bias_buf[1]);
+		DW_CONV_3x3(FM_buf_3, FM_buf_2, weight_buf_3x3[1], bias_buf[1], 0);
+		relu_copy_buf_to_DDR(DDR_buf_burst, 58 + c + 1, FM_buf_2, 0, 0);
 
 		//// 3/4 channels
 		load_weight_3x3_from_axi(weight_buf_3x3[2], conv_weight_3x3_all[weight_3x3_index + c + 2]);
 		load_bias_from_axi(bias_buf[0], bias_all[bias_3x3_index + c + 2]);
-		set_bias_3x3(FM_buf2, bias_buf[0]);
-		DW_CONV_3x3(FM_buf4, FM_buf2, weight_buf_3x3[2], bias_buf[0], 0);
-		relu_copy_buf_to_DDR(DDR_buf_burst, 58 + c + 2, FM_buf2, 0, 0);
+		set_bias_3x3(FM_buf_2, bias_buf[0]);
+		DW_CONV_3x3(FM_buf_4, FM_buf_2, weight_buf_3x3[2], bias_buf[0], 0);
+		relu_copy_buf_to_DDR(DDR_buf_burst, 58 + c + 2, FM_buf_2, 0, 0);
 
 		//// 4/4 channels
 		load_weight_3x3_from_axi(weight_buf_3x3[3], conv_weight_3x3_all[weight_3x3_index + c + 3]);
 		load_bias_from_axi(bias_buf[1], bias_all[bias_3x3_index + c + 3]);
-		set_bias_3x3(FM_buf2, bias_buf[1]);
-		DW_CONV_3x3(FM_buf1, FM_buf2, weight_buf_3x3[3], bias_buf[1], 0);
-		relu_copy_buf_to_DDR(DDR_buf_burst, 58 + c + 3, FM_buf2, 0, 0);
+		set_bias_3x3(FM_buf_2, bias_buf[1]);
+		DW_CONV_3x3(FM_buf_1, FM_buf_2, weight_buf_3x3[3], bias_buf[1], 0);
+		relu_copy_buf_to_DDR(DDR_buf_burst, 58 + c + 3, FM_buf_2, 0, 0);
 	}
 
 	// Second half: 768~1280 channels from DW5_conv_1x1_output
@@ -1145,21 +1162,21 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 	// Output of first half are stored in DDR_buf[82] to DDR_buf[97]
 	CI_N = 512 / 32;
 
-	load_buf_from_DDR(FM_buf1, DDR_buf_burst, 42 + 0);
+	load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 42 + 0);
 	for(int c = 0; c < CI_N; c++) {
 		load_weight_3x3_from_axi(weight_buf_3x3[0], conv_weight_3x3_all[weight_3x3_index + c + 24]);
 		load_bias_from_axi(bias_buf[0], bias_all[bias_3x3_index + c + 24]);
-		set_bias_3x3(FM_buf2, bias_buf[0]);
+		set_bias_3x3(FM_buf_2, bias_buf[0]);
 
 		if( c % 2 == 0) {
-			load_buf_from_DDR(FM_buf3, DDR_buf_burst, 42 + c+1);
-			DW_CONV_3x3(FM_buf1, FM_buf2, weight_buf_3x3[0], bias_buf[0], 0);
+			load_buf_from_DDR(FM_buf_3, DDR_buf_burst, 42 + c+1);
+			DW_CONV_3x3(FM_buf_1, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 0);
 		}
 		else {
-			load_buf_from_DDR(FM_buf1, DDR_buf_burst, 42 + c+1);
-			DW_CONV_3x3(FM_buf3, FM_buf2, weight_buf_3x3[0], bias_buf[0], 0);
+			load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 42 + c+1);
+			DW_CONV_3x3(FM_buf_3, FM_buf_2, weight_buf_3x3[0], bias_buf[0], 0);
 		}
-		relu_copy_buf_to_DDR(DDR_buf_burst, 82 + c, FM_buf2, 0, 0);
+		relu_copy_buf_to_DDR(DDR_buf_burst, 82 + c, FM_buf_2, 0, 0);
 	}
 
 	/// DW6_CONV_1x1
@@ -1174,17 +1191,17 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 		load_bias_from_axi(bias_buf[0], bias_all[bias_1x1_index + co]);
 		set_bias_1x1(FM_buf_acc, bias_buf[0]);
 
-		load_buf_from_DDR(FM_buf2, DDR_buf_burst, 58 + 0);
+		load_buf_from_DDR(FM_buf_2, DDR_buf_burst, 58 + 0);
 		for(int ci = 0; ci < CI_N; ci++) {
 			load_weight_1x1_from_axi(weight_buf_1x1[0], conv_weight_1x1_all[weight_1x1_index + ci + co * CI_N]);
 
 			if( ci % 2 == 0) {
-				load_buf_from_DDR(FM_buf1, DDR_buf_burst, 58 + ci+1);
-				CONV_1x1(FM_buf2, FM_buf_acc, weight_buf_1x1[0]);
+				load_buf_from_DDR(FM_buf_1, DDR_buf_burst, 58 + ci+1);
+				CONV_1x1(FM_buf_2, FM_buf_acc, weight_buf_1x1[0]);
 			}
 			else {
-				load_buf_from_DDR(FM_buf2, DDR_buf_burst, 58 + ci+1);
-				CONV_1x1(FM_buf1, FM_buf_acc, weight_buf_1x1[0]);
+				load_buf_from_DDR(FM_buf_2, DDR_buf_burst, 58 + ci+1);
+				CONV_1x1(FM_buf_1, FM_buf_acc, weight_buf_1x1[0]);
 			}
 		}
 
@@ -1206,15 +1223,15 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 		clear_buffer(FM_buf_acc);
 		for(int ci = 0; ci < CI_N; ci++) {
 			load_weight_1x1_from_axi(weight_buf_1x1[0], conv_weight_1x1_all[weight_1x1_index + ci + co * CI_N]);
-			load_buf_from_DDR(FM_buf2, DDR_buf_burst, 98 + ci);
-			CONV_1x1(FM_buf2, FM_buf_acc, weight_buf_1x1[0]);
+			load_buf_from_DDR(FM_buf_2, DDR_buf_burst, 98 + ci);
+			CONV_1x1(FM_buf_2, FM_buf_acc, weight_buf_1x1[0]);
 		}
 	}
 
 	printf("PW7 Done\n");
 
 
-	compute_bounding_box(predict_boxes, constant);
+	compute_bounding_box(predict_boxes, constant, FM_buf_acc);
 
 	return;
 

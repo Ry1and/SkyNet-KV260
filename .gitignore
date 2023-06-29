@@ -1,0 +1,4 @@
+FPGA/HLS/model/
+FPGA/HLS/model-vitis/
+FPGA/RTL/skynet/
+FPGA/RTL/skynet-kv260/

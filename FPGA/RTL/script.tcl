@@ -1,17 +1,17 @@
 
 
 create_project [lindex $argv 0] [lindex $argv 1]/[lindex $argv 0]/ -part xczu3eg-sbva484-1-e
-set_property board_part em.avnet.com:ultra96:part0:1.0 [current_project]
+set_property board_part avnet.com:ultra96v1:part0:1.2 [current_project]
 create_bd_design "design_1"
 update_compile_order -fileset sources_1
 startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.2 zynq_ultra_ps_e_0
+create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 zynq_ultra_ps_e_0
 endgroup
 apply_bd_automation -rule xilinx.com:bd_rule:zynq_ultra_ps_e -config {apply_board_preset "1" }  [get_bd_cells zynq_ultra_ps_e_0]
 set_property -dict [list CONFIG.PSU__USE__S_AXI_GP2 {1} CONFIG.PSU__USE__S_AXI_GP3 {1} CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {220}] [get_bd_cells zynq_ultra_ps_e_0]
 
 
-set_property  ip_repo_paths [lindex $argv 2] [current_project]
+set_property  ip_repo_paths [lindex $argv 2]/solution2 [current_project]
 update_ip_catalog
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:hls:SkyNet:1.0 SkyNet_0

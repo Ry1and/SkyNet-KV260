@@ -35,10 +35,10 @@ set_part {xczu3eg-sbva484-1-e} -tool vivado
 create_clock -period 10 -name default
 
 ## C simulation
-csim_design
+#csim_design
 
 ## C code synthesis to generate Verilog code
-csynth_design
+#csynth_design
 
 ## C and Verilog co-simulation
 ## This usually takes a long time so it is commented
@@ -46,6 +46,6 @@ csynth_design
 #cosim_design
 
 ## export synthesized Verilog code
-export_design -format ip_catalog
+#export_design -format ip_catalog
 
 exit
