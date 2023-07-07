@@ -1,0 +1,7 @@
+ryzen-7700x Frames per second:4.734290685994883
+
+ryzen-7700x Frames per second:4.738335384928661
+
+ryzen-7700x Frames per second:4.678151789947917
+
+RTX3090(CUDA) Frames per second:6.285922816440828

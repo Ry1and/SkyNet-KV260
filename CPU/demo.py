@@ -80,9 +80,9 @@ def solve(raw_img):
         ymin = int((bcy - bh / 2.0) * raw_height)
         xmax = int(xmin + bw * raw_width)
         ymax = int(ymin + bh * raw_height)
-
+        print([xmin, xmax, ymin, ymax])
         cv2.rectangle(raw_img, (xmin, ymin), (xmax, ymax), (255, 0, 0), 2)
-
+        print([xmin, xmax, ymin, ymax])
     return raw_img
 
 

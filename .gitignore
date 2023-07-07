@@ -2,3 +2,9 @@ FPGA/HLS/model/
 FPGA/HLS/model-vitis/
 FPGA/RTL/skynet/
 FPGA/RTL/skynet-kv260/
+
+model*/
+__pycache__/
+
+data_test/
+data_training/

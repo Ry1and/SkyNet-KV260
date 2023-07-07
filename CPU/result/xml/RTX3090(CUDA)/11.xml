@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<annotation>
+		<filename>11</filename>
+		<size>
+			<width>640</width>
+			<length>360</length>
+		</size>
+		<object>
+			<name>NotCare</name>
+			<bndbox>
+				<xmin>316.4668817520141</xmin>
+				<xmax>337.45975399017334</xmax>
+				<ymin>148.4802578687668</ymin>
+				<ymax>168.90988647937778</ymax>
+			</bndbox>
+		</object>
+	</annotation>

@@ -10,19 +10,19 @@ import numpy as np
 
 
 def main():
-    teamName = 'iSmart3-SkyNet'
-    imgDir = '/home/nvidia/images/'
-    rootDir = '/home/nvidia/result/'
+    platform = 'RTX3090(CUDA)'
+    imgDir = './test_images/'
+    rootDir = './result/'
     if not os.path.isdir(rootDir):
         os.mkdir(rootDir)
         os.mkdir(os.path.join(rootDir, 'xml'))
-    myXmlDir = '/home/nvidia/result/xml/' + teamName
+    myXmlDir = './result/xml/' + platform
     if not os.path.isdir(myXmlDir):
         os.mkdir(myXmlDir)
-    timeDir = '/home/nvidia/result/time/'
+    timeDir = './result/time/'
     if not os.path.isdir(timeDir):
         os.mkdir(timeDir)
-    allTimeFile = '/home/nvidia/result/time/alltime.txt'
+    allTimeFile = './result/time/alltime.txt'
 
     modeltype = 'SkyNet()'
     weightfile = 'dac.weights'
@@ -49,8 +49,8 @@ def main():
         shuffle=False,
         **kwargs)
     
-    device = 'cpu'
-    #device = 'cuda'
+    #device = 'cpu'
+    device = 'cuda'
     
     model = model.to(device)
 
@@ -125,7 +125,7 @@ def main():
     etime = time.time()
 
     storeResultsToXML(results, cdataset.imageNames, myXmlDir)
-    write(imageNum, etime - stime, teamName, allTimeFile)
+    write(imageNum, etime - stime, platform, allTimeFile)
 
 
 if __name__ == "__main__":
