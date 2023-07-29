@@ -20,6 +20,111 @@ FIX_WT weight_buf_1x1[4][32][32];
 FIX_WT weight_buf_3x3[4][32][3][3];
 FIX_WT bias_buf[4][32];
 
+/*
+void compute_bounding_box(float predict_box[4][5], int constant[4][3])
+{
+#pragma HLS RESOURCE variable=FM_buf_acc core=RAM_2P_URAM
+    FIX_32_4 conf_thresh = -100.0;
+    int conf_j = 0;
+    int conf_m = 0;
+    int conf_n = 0;
+    FIX_32_4 conf_box1 = 0.0;
+    FIX_32_4 conf_box2 = 0.0;
+
+    for (int m = 1; m <= 42; m++) {
+        for (int n = 1; n <= 82; n++) {
+            conf_box1 = FM_buf_acc[4][m][n];
+            conf_box2 = FM_buf_acc[9][m][n];
+
+            if (conf_box1 > conf_thresh) {
+                conf_thresh = conf_box1;
+                conf_j = 0;
+                conf_m = m;
+                conf_n = n;
+            }
+
+            if (conf_box2 > conf_thresh) {
+                conf_thresh = conf_box2;
+                conf_j = 1;
+                conf_m = m;
+                conf_n = n;
+            }
+        }
+    }
+
+    // Compute bounding boxes based on conf_j and conf_m
+
+    //for (int i = 0; i < 4; i++) {
+        //int m, n;
+        //if (i < 2) {
+            //m = (i == 0) ? conf_m : conf_m - 22;
+            //n = (i == 0) ? conf_n : conf_n - 42;
+        //} else {
+            //m = (i == 2) ? conf_m - 22 : conf_m;
+            //n = (i == 2) ? conf_n : conf_n - 42;
+        //}
+
+        //int j = (i < 2) ? i : i - 2;
+        //conf_j = (j == 0) ? 0 : 1;
+
+    for (int i = 0; i < 4; i++) {
+        int m, n, j;
+
+        if (i < 2) {
+            if (i == 0) {
+                m = conf_m;
+                n = conf_n;
+            } else {
+                m = conf_m - 22;
+                n = conf_n - 42;
+            }
+            j = i;
+        } else {
+            if (i == 2) {
+                m = conf_m - 22;
+                n = conf_n;
+            } else {
+                m = conf_m;
+                n = conf_n - 42;
+            }
+            j = i - 2;
+        }
+        if (j == 0) {
+        	conf_j = 0;
+        } else {
+        	conf_j = 1;
+        }
+    //}
+
+        if (conf_j == 0) {
+            predict_box[i][0] = FM_buf_acc[j * 5][m][n];
+            predict_box[i][1] = FM_buf_acc[j * 5 + 1][m][n];
+            predict_box[i][2] = FM_buf_acc[j * 5 + 2][m][n];
+            predict_box[i][3] = FM_buf_acc[j * 5 + 3][m][n];
+            predict_box[i][4] = conf_thresh;
+        } else {
+            predict_box[i][0] = FM_buf_acc[j * 5 + 5][m][n];
+            predict_box[i][1] = FM_buf_acc[j * 5 + 6][m][n];
+            predict_box[i][2] = FM_buf_acc[j * 5 + 7][m][n];
+            predict_box[i][3] = FM_buf_acc[j * 5 + 8][m][n];
+            predict_box[i][4] = conf_thresh;
+        }
+
+        //constant[i][0] = conf_j;
+        //constant[i][1] = n - ((j == 0) ? 1 : 43);
+        //constant[i][2] = m - ((j == 0) ? 1 : 23);
+
+        if (j == 0) {
+        	constant[i][1] = n - 1;
+        	constant[i][2] = n - 1;
+        } else {
+        	constant[i][1] = n - 43;
+        	constant[i][2] = n - 23;
+        }
+    }
+}
+*/
+
 
 
 void compute_bounding_box(float predict_box[4][5], int constant[4][3])
@@ -416,10 +521,12 @@ void set_bias_3x3( FIX_FM buf[32][44][84], FIX_WT bias[32])
 	for(int h = 1; h <= 42; h+=2) {
 		for(int w = 1; w <= 82; w++) {
 #pragma HLS pipeline
-			for(int c = 0; c < 32; c++) {
+			for(int c = 0; c < 32; c+=2) {
 #pragma HLS unroll
 				buf[c][h  ][w] = bias[c];
 				buf[c][h+1][w] = bias[c];
+				buf[c+1][h  ][w] = bias[c+1];
+				buf[c+1][h+1][w] = bias[c+1];
 			}
 		}
 	}
@@ -508,8 +615,41 @@ FIX_FM img_norm_ch[256] = {
 		1.780392, 1.796078, 1.811765, 1.827451, 1.843137, 1.858824, 1.874510, 1.890196, 1.905882, 1.921569, 1.937255, 1.952941, 1.968627, 1.984314, 2.000000
 };
 
+/*
+void load_image_chunk_norm(FIX_FM img_buf[32][44][84], uint8 image_in_raw_pad_burst[3*162*2*322*2],
+                           int col, int row, int offset_h = 0, int offset_w = 0)
+{
+    uint8* image_in_raw_pad_burst_ptr;
+    uint8 image_chunk[3][44][84];
 
+#pragma HLS array_partition variable=image_chunk complete dim=1
 
+    image_in_raw_pad_burst_ptr = image_in_raw_pad_burst + (col*40 + offset_h*2)*322*2 + row*80 + offset_w*2;
+
+    // Load the image chunk into a local array (image_chunk)
+    for (int i = 0; i < 44; i++) {
+        for (int j = 0; j < 84; j++) {
+#pragma HLS pipeline II=1
+            uint8 pixel = image_in_raw_pad_burst_ptr[j];
+            image_chunk[0][i][j] = img_norm_ch[pixel];
+            image_chunk[1][i][j] = img_norm_ch[pixel + 322 * 2];
+            image_chunk[2][i][j] = img_norm_ch[pixel + 2 * 322 * 2];
+        }
+        image_in_raw_pad_burst_ptr += 322 * 2;
+    }
+
+    // Copy the local array (image_chunk) to the img_buf
+    for (int i = 0; i < 44; i++) {
+        for (int j = 0; j < 84; j++) {
+#pragma HLS pipeline II=1
+#pragma HLS unroll
+            img_buf[0][i][j] = image_chunk[0][i][j];
+            img_buf[1][i][j] = image_chunk[1][i][j];
+            img_buf[2][i][j] = image_chunk[2][i][j];
+        }
+    }
+}
+*/
 void load_image_chunk_norm(FIX_FM img_buf[32][44][84], uint8 image_in_raw_pad_burst[3*162*2*322*2],
 							int col, int row, int offset_h = 0, int offset_w = 0)
 {
@@ -623,6 +763,124 @@ void Relu_Max_Pooling(
 	}
 }
 
+/*
+void load_and_reorg_part(uint512* buf_in, int buf_id,
+                         FIX_FM buf_out_1[32][44][84],
+                         FIX_FM buf_out_2[32][44][84],
+                         FIX_FM buf_out_3[32][44][84],
+                         FIX_FM_acc buf_out_4[32][44][84],
+                         int offset_h, int offset_w)
+{
+    uint512* buf_in_ptr = buf_in + buf_id * 44 * 84;
+
+
+
+    for (int h = 1; h <= 40; h += 4) {
+        for (int w = 1; w <= 80; w += 4) {
+            uint512 DATA[16] = {0};
+//#pragma HLS ARRAY_PARTITION variable=DATA complete dim=0
+
+
+            // Load data into DATA array
+            for (int dh = 0; dh < 4; dh++) {
+//#pragma HLS PIPELINE
+                for (int dw = 0; dw < 4; dw++) {
+//#pragma HLS UNROLL
+                    int index = dh * 4 + dw;
+                    DATA[index].range(511, 0) = buf_in_ptr[(h + dh) * 84 + (w + dw)].range(511, 0);
+                }
+            }
+
+
+
+            for (int c = 0; c < 8; c++) {
+//#pragma HLS PIPELINE
+                int base_row = (h + 1) / 2 + offset_h * 22;
+                int base_col = (w + 1) / 2 + offset_w * 42;
+
+
+
+                // Process four elements of each DATA array in parallel
+                for (int dh = 0; dh < 4; dh++) {
+//#pragma HLS PIPELINE
+                    for (int dw = 0; dw < 4; dw++) {
+//#pragma HLS UNROLL
+                        int data_idx = dh * 4 + dw;
+                        int row = base_row + dh;
+                        int col = base_col + dw;
+                        int fm_rg = FM_RG + (c + data_idx * 8) * 16;
+                        int wt_rg = WT_RG + (c + data_idx * 8 + 16) * 16;
+
+
+
+                        // Reorganize data into the output buffers
+                        buf_out_1[c * 4 + data_idx][row][col].range(FM_RG, 0) = DATA[data_idx].range(fm_rg, fm_rg);
+                        buf_out_2[c * 4 + data_idx][row][col].range(FM_RG, 0) = DATA[data_idx + 8].range(fm_rg, fm_rg);
+                        buf_out_3[c * 4 + data_idx][row][col].range(FM_RG, 0) = DATA[data_idx + 16].range(fm_rg, fm_rg);
+                        buf_out_4[c * 4 + data_idx][row][col].range(WT_RG, 0) = DATA[data_idx + 24].range(wt_rg, wt_rg);
+                    }
+                }
+            }
+        }
+    }
+}
+*/
+
+
+/*
+#include "hls_stream.h"
+
+#define UNROLL_FACTOR 4
+
+void load_and_reorg_part(uint512* buf_in, int buf_id,
+                         FIX_FM buf_out_1[32][44][84],
+                         FIX_FM buf_out_2[32][44][84],
+                         FIX_FM buf_out_3[32][44][84],
+                         FIX_FM_acc buf_out_4[32][44][84],
+                         int offset_h, int offset_w) {
+#pragma HLS INLINE off
+    uint512* buf_in_ptr = buf_in + buf_id * 44 * 84;
+
+    for (int h = 1; h <= 40; h += UNROLL_FACTOR) {
+        for (int w = 1; w <= 80; w += UNROLL_FACTOR) {
+            uint512 DATA[16] = {0};
+#pragma HLS ARRAY_PARTITION variable=DATA complete dim=0
+
+            for (int i = 0; i < UNROLL_FACTOR; i++) {
+                DATA[i].range(511, 0) = buf_in_ptr[(h + i) * 84 + w].range(511, 0);
+                DATA[i + UNROLL_FACTOR].range(511, 0) = buf_in_ptr[(h + i) * 84 + w + 2].range(511, 0);
+                DATA[i + 2 * UNROLL_FACTOR].range(511, 0) = buf_in_ptr[(h + i) * 84 + w + 1].range(511, 0);
+                DATA[i + 3 * UNROLL_FACTOR].range(511, 0) = buf_in_ptr[(h + i) * 84 + w + 3].range(511, 0);
+            }
+
+            for (int c = 0; c < UNROLL_FACTOR * 3; c++) {
+#pragma HLS PIPELINE
+                int c_offset = c * UNROLL_FACTOR;
+
+                buf_out_1[c_offset][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset].range(FM_RG + c * 16, c * 16);
+                buf_out_1[c_offset + 1][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + 1].range(FM_RG + c * 16, c * 16);
+                buf_out_1[c_offset + 2][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + 2].range(FM_RG + c * 16, c * 16);
+                buf_out_1[c_offset + 3][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + 3].range(FM_RG + c * 16, c * 16);
+
+                buf_out_2[c_offset][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + UNROLL_FACTOR].range(FM_RG + c * 16, c * 16);
+                buf_out_2[c_offset + 1][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + UNROLL_FACTOR + 1].range(FM_RG + c * 16, c * 16);
+                buf_out_2[c_offset + 2][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + UNROLL_FACTOR + 2].range(FM_RG + c * 16, c * 16);
+                buf_out_2[c_offset + 3][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + UNROLL_FACTOR + 3].range(FM_RG + c * 16, c * 16);
+
+                buf_out_3[c_offset][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + 2 * UNROLL_FACTOR].range(FM_RG + c * 16, c * 16);
+                buf_out_3[c_offset + 1][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + 2 * UNROLL_FACTOR + 1].range(FM_RG + c * 16, c * 16);
+                buf_out_3[c_offset + 2][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + 2 * UNROLL_FACTOR + 2].range(FM_RG + c * 16, c * 16);
+                buf_out_3[c_offset + 3][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(FM_RG, 0) = DATA[c_offset + 2 * UNROLL_FACTOR + 3].range(FM_RG + c * 16, c * 16);
+
+                buf_out_4[c_offset][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(WT_RG, 0) = DATA[c_offset + 3 * UNROLL_FACTOR].range(WT_RG + c * 16, c * 16);
+                buf_out_4[c_offset + 1][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(WT_RG, 0) = DATA[c_offset + 3 * UNROLL_FACTOR + 1].range(WT_RG + c * 16, c * 16);
+                buf_out_4[c_offset + 2][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(WT_RG, 0) = DATA[c_offset + 3 * UNROLL_FACTOR + 2].range(WT_RG + c * 16, c * 16);
+                buf_out_4[c_offset + 3][(h + 1) / 2 + offset_h * 22][(w + 1) / 2 + offset_w * 42].range(WT_RG, 0) = DATA[c_offset + 3 * UNROLL_FACTOR + 3].range(WT_RG + c * 16, c * 16);
+            }
+        }
+    }
+}
+*/
 
 void load_and_reorg_part( uint512* buf_in, int buf_id,
 						  FIX_FM buf_out_1[32][44][84],
@@ -634,8 +892,9 @@ void load_and_reorg_part( uint512* buf_in, int buf_id,
 	uint512* buf_in_ptr = buf_in + buf_id*44*84;
 
 	for(int h = 1; h <= 40; h+=4) {
+//#pragma HLS PIPELINE
 		for(int w = 1; w <= 80; w+=4) {
-
+//#pragma HLS UNROLL
 			uint512 DATA[16] = {0};
 			DATA[0].range(511, 0)  = buf_in_ptr[(h  )*84 + w  ].range(511, 0);
 			DATA[1].range(511, 0)  = buf_in_ptr[(h+2)*84 + w  ].range(511, 0);
@@ -655,6 +914,7 @@ void load_and_reorg_part( uint512* buf_in, int buf_id,
 			DATA[15].range(511, 0) = buf_in_ptr[(h+3)*84 + w+3].range(511, 0);
 
 			for(int c = 0; c < 8; c++) {
+#pragma HLS UNROLL
 				///////////////////
 				buf_out_1[c*4][(h+1)/2     + offset_h*22][(w+1)/2   + offset_w*42].range(FM_RG, 0) = DATA[0].range(FM_RG + c * 16, c * 16);
 				buf_out_1[c*4][(h+1)/2+1   + offset_h*22][(w+1)/2   + offset_w*42].range(FM_RG, 0) = DATA[1].range(FM_RG + c * 16, c * 16);
@@ -770,6 +1030,7 @@ void local_buf_copy( FIX_FM dest[32][44][84], FIX_FM_acc src[32][44][84])
 		}
 	}
 }
+
 
 void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 
@@ -1229,3 +1490,4 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 
 
 }
+
