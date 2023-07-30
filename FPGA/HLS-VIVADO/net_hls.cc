@@ -9,10 +9,7 @@ using namespace std;
 
 
 // feature map buffers
-FIX_FM FM_buf1[32][44][84];
-FIX_FM FM_buf2[32][44][84];
-FIX_FM FM_buf3[32][44][84];
-FIX_FM FM_buf4[32][44][84];
+
 FIX_FM_acc FM_buf_acc[32][44][84];
 
 // weight buffers
@@ -1050,6 +1047,10 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 #pragma HLS RESOURCE variable=FM_buf_acc core=RAM_2P_URAM
 #pragma HLS RESOURCE variable=weight_buf_3x3 core=RAM_2P_LUTRAM
 #pragma HLS RESOURCE variable=weight_buf_1x1 core=RAM_2P_LUTRAM
+FIX_FM FM_buf1[32][44][84];
+FIX_FM FM_buf2[32][44][84];
+FIX_FM FM_buf3[32][44][84];
+FIX_FM FM_buf4[32][44][84];
 #pragma HLS RESOURCE variable=FM_buf3 core=RAM_2P_BRAM
 #pragma HLS RESOURCE variable=FM_buf2 core=RAM_2P_BRAM
 #pragma HLS RESOURCE variable=FM_buf4 core=RAM_2P_BRAM

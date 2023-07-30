@@ -33,12 +33,13 @@ void DW_CONV_3x3(FIX_FM bottom[32][44][84],
 
 	for(int i = 0; i < 3; i++) {
 		for(int j = 0; j < 3; j++) {
-			for(int h = 1; h <= 42; h++){
+			for(int h = 1; h <= 42; h+=2){
 				for(int w = 1; w <= 82; w++){
 #pragma HLS pipeline
 					for(int co = 0; co < 32; co++){
 #pragma HLS unroll
 						top[co][h][w] += (weights[co][i][j] * bottom[co][h+i-1][w+j-1]);
+						top[co][h + 1][w] += (weights[co][i][j] * bottom[co][h+i][w+j-1]);
 					}
 				}
 			}
