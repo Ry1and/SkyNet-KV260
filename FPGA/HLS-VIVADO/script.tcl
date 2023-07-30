@@ -3,7 +3,7 @@
 ## Please DO NOT edit it.
 ## Copyright (C) 1986-2018 Xilinx, Inc. All Rights Reserved.
 ############################################################
-open_project model2
+open_project model3
 set_top SkyNet
 
 add_files conv1x1.cc
@@ -31,7 +31,7 @@ add_files -tb ./test_image_bins/stitched_8_11.bin
 add_files -tb tb.cc
 add_files -tb weights_floating.bin
 open_solution "solution1"
-set_part {xqzu5ev-ffrb900-1-i} -tool vivado
+set_part {xczu9eg-ffvb1156-2-e} -tool vivado
 create_clock -period 10 -name default
 
 ## C simulation

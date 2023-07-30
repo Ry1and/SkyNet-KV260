@@ -9,10 +9,7 @@ using namespace std;
 
 
 // feature map buffers
-FIX_FM FM_buf1[32][44][84];
-FIX_FM FM_buf2[32][44][84];
-FIX_FM FM_buf3[32][44][84];
-FIX_FM FM_buf4[32][44][84];
+
 FIX_FM_acc FM_buf_acc[32][44][84];
 
 // weight buffers
@@ -24,7 +21,7 @@ FIX_WT bias_buf[4][32];
 
 void compute_bounding_box(float predict_box[4][5], int constant[4][3])
 {
-#pragma HLS RESOURCE variable=FM_buf_acc core=RAM_2P_URAM
+//#pragma HLS RESOURCE variable=FM_buf_acc core=RAM_2P_URAM
     FIX_32_4 conf_thresh = -100.0;
     int conf_j = 0;
     int conf_m = 0;
@@ -395,7 +392,6 @@ void load_bias_from_axi(FIX_WT dest[32], uint512 src)
 	}
 }
 
-
 void set_bias_1x1( FIX_FM_acc buf[32][44][84], FIX_WT bias[32])
 {
 	for(int h = 1; h <= 42; h+=2) {
@@ -416,10 +412,13 @@ void set_bias_3x3( FIX_FM buf[32][44][84], FIX_WT bias[32])
 	for(int h = 1; h <= 42; h+=2) {
 		for(int w = 1; w <= 82; w++) {
 #pragma HLS pipeline
-			for(int c = 0; c < 32; c++) {
+			for(int c = 0; c < 32; c+=2) {
 #pragma HLS unroll
 				buf[c][h  ][w] = bias[c];
 				buf[c][h+1][w] = bias[c];
+
+				buf[c + 1][h  ][w] = bias[c + 1];
+				buf[c + 1][h+1][w] = bias[c + 1];
 			}
 		}
 	}
@@ -786,13 +785,17 @@ void SkyNet(	uint8 image_in_raw_pad[3*162*2*322*2],
 				int constant[4][3]
 )
 {
-#pragma HLS RESOURCE variable=FM_buf_acc core=RAM_2P_URAM
-#pragma HLS RESOURCE variable=weight_buf_3x3 core=RAM_2P_LUTRAM
-#pragma HLS RESOURCE variable=weight_buf_1x1 core=RAM_2P_LUTRAM
-#pragma HLS RESOURCE variable=FM_buf3 core=RAM_2P_BRAM
-#pragma HLS RESOURCE variable=FM_buf2 core=RAM_2P_BRAM
-#pragma HLS RESOURCE variable=FM_buf4 core=RAM_2P_BRAM
-#pragma HLS RESOURCE variable=FM_buf1 core=RAM_2P_BRAM
+//#pragma HLS RESOURCE variable=FM_buf_acc core=RAM_2P_URAM
+//#pragma HLS RESOURCE variable=weight_buf_3x3 core=RAM_2P_LUTRAM
+//#pragma HLS RESOURCE variable=weight_buf_1x1 core=RAM_2P_LUTRAM
+FIX_FM FM_buf1[32][44][84];
+FIX_FM FM_buf2[32][44][84];
+FIX_FM FM_buf3[32][44][84];
+FIX_FM FM_buf4[32][44][84];
+//#pragma HLS RESOURCE variable=FM_buf3 core=RAM_2P_BRAM
+//#pragma HLS RESOURCE variable=FM_buf2 core=RAM_2P_BRAM
+//#pragma HLS RESOURCE variable=FM_buf4 core=RAM_2P_BRAM
+//#pragma HLS RESOURCE variable=FM_buf1 core=RAM_2P_BRAM
 
 #pragma HLS INTERFACE m_axi depth=3*162*322 	port=image_in_raw_pad			offset=slave	bundle=INPUT
 #pragma HLS INTERFACE m_axi depth=306*32*32		port=conv_weight_1x1_all		offset=slave	bundle=INPUT
