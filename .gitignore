@@ -8,3 +8,6 @@ __pycache__/
 
 data_test/
 data_training/
+
+*.log
+*.jou
