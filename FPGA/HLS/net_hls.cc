@@ -415,10 +415,12 @@ void set_bias_3x3( FIX_FM buf[32][44][84], FIX_WT bias[32])
 	for(int h = 1; h <= 42; h+=2) {
 		for(int w = 1; w <= 82; w++) {
 #pragma HLS pipeline
-			for(int c = 0; c < 32; c++) {
+			for(int c = 0; c < 32; c+=2) {
 #pragma HLS unroll
 				buf[c][h  ][w] = bias[c];
 				buf[c][h+1][w] = bias[c];
+				buf[c+1][h  ][w] = bias[c+1];
+				buf[c+1][h+1][w] = bias[c+1];
 			}
 		}
 	}
@@ -654,6 +656,7 @@ void load_and_reorg_part( uint512* buf_in, int buf_id,
 			DATA[15].range(511, 0) = buf_in_ptr[(h+3)*84 + w+3].range(511, 0);
 
 			for(int c = 0; c < 8; c++) {
+#pragma HLS UNROLL				
 				///////////////////
 				buf_out_1[c*4][(h+1)/2     + offset_h*22][(w+1)/2   + offset_w*42].range(FM_RG, 0) = DATA[0].range(FM_RG + c * 16, c * 16);
 				buf_out_1[c*4][(h+1)/2+1   + offset_h*22][(w+1)/2   + offset_w*42].range(FM_RG, 0) = DATA[1].range(FM_RG + c * 16, c * 16);

@@ -4,6 +4,7 @@ FPGA/RTL/skynet/
 FPGA/RTL/skynet-kv260/
 
 model*/
+*/__pycache__/
 __pycache__/
 
 data_test/
