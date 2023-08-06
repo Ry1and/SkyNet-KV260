@@ -656,7 +656,7 @@ void load_and_reorg_part( uint512* buf_in, int buf_id,
 			DATA[15].range(511, 0) = buf_in_ptr[(h+3)*84 + w+3].range(511, 0);
 
 			for(int c = 0; c < 8; c++) {
-#pragma HLS UNROLL				
+#pragma HLS UNROLL
 				///////////////////
 				buf_out_1[c*4][(h+1)/2     + offset_h*22][(w+1)/2   + offset_w*42].range(FM_RG, 0) = DATA[0].range(FM_RG + c * 16, c * 16);
 				buf_out_1[c*4][(h+1)/2+1   + offset_h*22][(w+1)/2   + offset_w*42].range(FM_RG, 0) = DATA[1].range(FM_RG + c * 16, c * 16);

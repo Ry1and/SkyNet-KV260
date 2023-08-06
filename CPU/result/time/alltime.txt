@@ -5,3 +5,7 @@ RTX3090(CUDA) Frames per second:6.285922816440828
 Kria(CPU) Frames per second:1.3269206646587137
 
 Kria(FPGA+CPU) Frames per second:13.931660426273261
+
+Kria(FPGA+CPU, after latency and throughput optimization) Frames per second:15.08694281792263
+
+Kria(FPGA+CPU, after latency and throughput optimization and task partitioning) Frames per second:19.414838267696126

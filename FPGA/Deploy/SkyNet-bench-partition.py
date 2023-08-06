@@ -285,12 +285,16 @@ for batch in get_image_batch():
         #print("control reg: ", SkyNet.read(0x00))
 
         SkyNet.write(0x00, 1)
+        start_1 = time.time()
         #print("control reg after start signal: ", SkyNet.read(0x00))
         isdone = SkyNet.read(0x00) & 0b10
+        
         while( isdone != 0b10 ):
             #print("FPGA is still running")
             isdone = SkyNet.read(0x00) & 0b10
-            
+        end_1 = time.time()
+
+        print("time taken for one image tile: ", str(end_1-start_1) + ' s')
 
         outputs = []
         #print("raw output from FPGA: \n", predict_boxes)
