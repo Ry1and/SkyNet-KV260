@@ -32,3 +32,4 @@ Login with the eth0 ip address assigned to Kria board and Ubuntu username and pa
 Get into sudo mode using: sudo su
 First source the Python venv using: source /etc/profile.d/pynq_venv.sh
 then run SkyNet.py
+
