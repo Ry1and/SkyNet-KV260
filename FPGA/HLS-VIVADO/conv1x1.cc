@@ -76,10 +76,10 @@ FIX_FM_acc compute_engine_16(FIX_WT w0,  FIX_FM b0,
 void load_weights(FIX_WT weights[32][32], FIX_WT weight_buf[32][16], int CI)
 {
 	for(int ci = 0; ci < 16; ci++) {
-//#pragma HLS pipeline
+#pragma HLS pipeline
 		for(int co = 0; co < 32; co++) {
 //#pragma HLS unroll
-#pragma HLS pipeline
+//#pragma HLS pipeline
 			weight_buf[co][ci] = weights[co][ci + CI];
 		}
 	}
